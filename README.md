@@ -25,7 +25,7 @@ node
 
     cd ./Constructor
   
-    node test/Constructor-test.js
+    node test/create-test.js
 
 
 
