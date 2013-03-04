@@ -33,9 +33,9 @@ node
     node test/base/base-pattern.js
     node test/base/using-natives.js
     
-    node test/extend/anti-pattern.js
+    node test/extend/anti-pattern.js ___todo___
     node test/extend/extend-pattern.js
-    node test/extend/using-natives.js
+    node test/extend/using-natives.js ___todo___
 
 
 npm
