@@ -2,6 +2,7 @@
 var Constructor = require('../src/Constructor.js').Constructor;
 
 // test base function
+
 function F() {};
 
 test('should return same function without new keyword', function (t) {
@@ -24,6 +25,56 @@ test('should return F as constructor', function (t) {
   t.strictEqual(new Constructor({
         constructor: F
     }), F);
+});
+
+// bad arguments
+
+test('should fail when argument not specified', function (t) {
+  t.plan(1);
+  var A;
+
+  try {
+    A = new Constructor();
+    t.fail('should have failed');
+  } catch(e) {
+    t.strictEqual(typeof A, 'undefined');
+  }
+});
+
+test('should fail when argument is boolean', function (t) {
+  t.plan(1);
+  var A;
+
+  try {
+    A = new Constructor(true);
+    t.fail('should have failed');
+  } catch(e) {
+    t.strictEqual(typeof A, 'undefined');
+  }
+});
+
+test('should fail when argument is number', function (t) {
+  t.plan(1);
+  var A;
+
+  try {
+    A = new Constructor(457);
+    t.fail('should have failed');
+  } catch(e) {
+    t.strictEqual(typeof A, 'undefined');
+  }
+});
+
+test('should fail when argument is string', function (t) {
+  t.plan(1);
+  var A;
+
+  try {
+    A = new Constructor('string');
+    t.fail('should have failed');
+  } catch(e) {
+    t.strictEqual(typeof A, 'undefined');
+  }
 });
 
 /* template */
