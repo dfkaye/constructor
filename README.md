@@ -18,7 +18,7 @@ ___TODO___
 git & github
 ============
 
-re-learning how to use github correctly ___always edit package.json on github directly to remove leading whitespace___
+re-learning how to use github correctly  ___always edit package.json on github directly to remove leading whitespace___
 
 node
 ====
