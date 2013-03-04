@@ -25,8 +25,13 @@ node
 
     cd ./Constructor
   
-    node test/creation-tests.js
-    node test/inheritance-tests.js
+    node test/base/anti-pattern.js
+    node test/base/base-pattern.js
+    node test/base/using-natives.js
+    
+    node test/extend/anti-pattern.js
+    node test/extend/base-pattern.js
+    node test/extend/using-natives.js
 
 
 npm

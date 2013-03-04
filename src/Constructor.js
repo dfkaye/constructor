@@ -33,7 +33,7 @@
         var error = "Constructor(): invalid 'source' argument, must be a function or prototype, but was ";;
         var ctr;
 
-        if ('function' == type) {
+        if ('function' === type) {
             return source;
         }	
 
