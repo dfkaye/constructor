@@ -30,7 +30,7 @@ node
     node test/base/using-natives.js
     
     node test/extend/anti-pattern.js
-    node test/extend/base-pattern.js
+    node test/extend/extend-pattern.js
     node test/extend/using-natives.js
 
 
