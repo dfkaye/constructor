@@ -1,7 +1,7 @@
 ﻿{
   "version": "0.0.1",
   "name": "Constructor.js",
-  "description": "Cconstructor-, prototype- and parent- inheritance for JavaScript.",
+  "description": "Constructor-, prototype- and parent- inheritance for JavaScript.",
   "homepage" : "https://github.com/dfkaye/Constructor",
   "author": {
     "name": "david kaye (@dfkaye)",
