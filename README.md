@@ -25,8 +25,8 @@ node
 
     cd ./Constructor
   
-    node test/create-test.js
-
+    node test/creation-tests.js
+    node test/inheritance-tests.js
 
 
 npm
