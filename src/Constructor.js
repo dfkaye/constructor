@@ -13,8 +13,10 @@
  *   12/23/12
  *      renamed method .create to .extend
  *      made .extend require both args, not just one 
- *      re-formatted defn to iife for commonjs  To-DONE
+ *      re-formatted defn to IIFE for pseudo-commonjs
  *
+ *   3/3/13
+ *      github repo opened ~ test factorings in progress
  */
 ;(function (exports) {
 
