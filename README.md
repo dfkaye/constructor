@@ -1,7 +1,9 @@
 ﻿Constructor.js
 =====================
 
-Constructor.js - constructor-, prototype- and parent- inheritance module. ___in progress___
+Constructor.js - constructor-, prototype- and parent- inheritance module. 
+base case tests __done for now__
+inheritance tests ___in progress___
 
 tape & testling
 ===============
@@ -18,7 +20,9 @@ ___TODO___
 git & github
 ============
 
-re-learning how to use github correctly  ___always edit package.json on github directly to remove leading whitespace___
+re-learning how to use github correctly  
+
+___always edit package.json on github directly to remove leading whitespace___
 
 node
 ====
