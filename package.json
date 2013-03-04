@@ -1,6 +1,6 @@
 ﻿{
   "version": "0.0.1",
-  "name": "Constructor.js",
+  "name": "Constructor",
   "description": "Constructor-, prototype- and parent- inheritance for JavaScript.",
   "homepage" : "https://github.com/dfkaye/Constructor",
   "author": {
