@@ -12,8 +12,6 @@ test('ok when argument is array object', function (t) {
   t.strictEqual(typeof Constructor([]), 'function');
 });
 
-
-
 test('should fail when argument is Date() string', function (t) {
   t.plan(1);
   var A;
@@ -144,3 +142,13 @@ test('ok when argument is Boolean constructor', function (t) {
   Boolean.prototype.nonce = null;
   
 });
+
+
+/* template */
+/*
+test('$1 should return $2', function (t) {
+  t.plan(1);
+  t.fail('next test to implement');
+});
+*/
+
