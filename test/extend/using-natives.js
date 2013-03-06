@@ -18,8 +18,6 @@ var SubArray = Constructor.extend([], {
   constructor: function () {
     this.parent();
     
-    console.log(this.length === this.parent.length);
-    
     // stolen from kangax (http://bit.ly/W66vQW)
     this.push.apply(this, arguments);
   },
