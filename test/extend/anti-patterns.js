@@ -58,7 +58,7 @@ test('should fail when second argument is string', function (t) {
   }
 });
 
-test('extend() should complain about identical constructors with reuse call', function (t) {
+test('extend() should complain about identical Base constructors', function (t) {
   t.plan(1);
   
   var A = Constructor({
@@ -72,13 +72,33 @@ test('extend() should complain about identical constructors with reuse call', fu
         constructor: Base
       });
       
-      t.fail('should fail - extend() should complain about identical constructors');
+      t.fail('should fail - extend() should complain about identical Base constructors');
       
   } catch (e) {
     t.strictEqual(typeof B, 'undefined');
   }
 });
 
+test('extend() should complain about identical constructors with reused subclass', function (t) {
+  t.plan(1);
+  
+  var A = Constructor({
+    constructor: Base
+  });
+  
+  var B;
+  
+  try {
+      B = Constructor.extend(A, {
+        constructor: A
+      });
+      
+      t.fail('should fail - extend() should complain about identical reused subclass');
+      
+  } catch (e) {
+    t.strictEqual(typeof B, 'undefined');
+  }
+});
 
 /* template */
 /*
