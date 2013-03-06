@@ -9,27 +9,38 @@
 var test = require('tape');
 var Constructor = require('../../src/Constructor.js').Constructor;
 
-// fixture - complete example of extending the Array
-var SubArray = Constructor.extend(Array, {
+/*
+ * FIXTURE - fairly complete example of extending the native built-in Arrays.
+ *
+ * NOTE:  the first argument here could also be just the Array constructor.
+ */
+var SubArray = Constructor.extend([], {
   constructor: function () {
     this.parent();
+    
+    // stolen from kangax (http://bit.ly/W66vQW)
     this.push.apply(this, arguments);
   },
+  
+  // borrowed from kangax (http://bit.ly/W66vQW)
   last: function () {
     return this[this.length - 1];
   },
 
-  // Array.prototype.toString() method fails on objects whose constructor is
-  // kangax (http://bit.ly/W66vQW), effective javascript (item 40, pp. 106ff), and some learning 
-  // tests tell us that the Array.prototype.toString() method fails on objects whose constructor is
-  // not really an Array - due to the internal use of [[Class]] by the JavaScript engine - so we'll 
-  // have to shim it
+  /**
+   * @method toString - must be defined explicitly
+   *
+   * kangax (http://bit.ly/W66vQW), effective javascript (item 40, pp. 106ff), and some learning 
+   * tests tell us that the Array.prototype.toString() method fails on objects whose constructor is
+   * not really an Array - due to the internal use of [[Class]] by the JavaScript engine - so we'll 
+   * have to shim it.
+   */
   toString: function () {
     return this.join();
   }
 });
   
-test('SubArray - verify our toString() fix', function (t) {
+test('SubArray - verify the toString() fix', function (t) {
   t.plan(1);
 
   var b = new SubArray('first', 'middle', 'last');
