@@ -22,10 +22,11 @@
 
     exports.Constructor = Constructor;
     
-    /*
-     *  constructor function Constructor
+    /**
+     *  @constructor function Constructor
      *  
-     *  param source - source must be either a function or an object specifier
+     *  @param source - source must be either a function or an object specifier
+     *  @return function - the new constructor function
      */
     function Constructor(source) {
 
@@ -54,8 +55,8 @@
 
         return ctr;
     };
-
-    /*
+    
+    /**
      *  @method Constructor.extend
      *
      *  @param source - required - source must be either a function or an object specifier
@@ -99,10 +100,10 @@
         newPrototype = new F;
 
         /*
-         *  In order to support the target argument as an object specifier, we have 
-         *  to take the extra step of copying out its properties onto the new target
-         *  function's prototype. 
-         */
+           *  In order to support the target argument as an object specifier, we have
+           *  to take the extra step of copying out its properties onto the new target
+           *  function's prototype.
+           */
         if (targetType === 'object') {
         
             var proto = newConstructor.prototype;
@@ -117,9 +118,9 @@
         newPrototype.constructor = newConstructor;
 
         /*
-         *	method parent - a call-once method for initializing the super/parent constructor of
-         *  this constructor.  parent is replaced with an instance of the super/parent. 
-         */
+           *  @method parent - a call-once method for initializing the super/parent constructor of
+           *  this constructor.  parent is replaced with an instance of the super/parent.
+           */
         newPrototype.parent = function () {
 
             var parent = this.constructor.parent;
