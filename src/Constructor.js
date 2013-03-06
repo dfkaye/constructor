@@ -29,20 +29,20 @@
      */
     function Constructor(source) {
 
-        var type = typeof(source);
+        var sourceType = typeof(source);
         var error = "Constructor(): invalid 'source' argument, must be a function or prototype, but was ";;
         var ctr;
 
-        if ('function' === type) {
+        if ('function' === sourceType) {
             return source;
         }	
 
-        if ('undefined' === type) {
+        if ('undefined' === sourceType) {
             throw new ReferenceError(error + "undefined");
         }
 
-        if ('object' !== type || source === null) {
-            throw new TypeError(error + ('object' != type  ? type + " [" + source + "]" : "null"));
+        if ('object' !== sourceType || source === null) {
+            throw new TypeError(error + ('object' != sourceType  ? sourceType + " [" + source + "]" : "null"));
         }
 
         ctr = source.hasOwnProperty('constructor') ? source.constructor : function () {};
@@ -54,10 +54,11 @@
     };
 
     /*
-     *  method Constructor.extend
+     *  @method Constructor.extend
      *
-     *  param source - required - source must be either a function or an object specifier
-     *  param target - required - target must be either a function or an object specifier
+     *  @param source - required - source must be either a function or an object specifier
+     *  @param target - required - target must be either a function or an object specifier
+     *  @return function - the new constructor function
      */
     Constructor.extend = extend;
     
@@ -73,15 +74,17 @@
         var targetType = typeof(target);
 
         /*
-         *  pass-through if not functions; let Constructor throw errors if not objects either;
-         */
+           *  pass-through if not functions; let Constructor throw errors if not objects either;
+           */
         var newSource = (sourceType !== 'function') ? new Constructor(source) : source;
         var newConstructor = (targetType !== 'function') ? new Constructor(target) : target;
-        
-        console.log('%s \n %s', newSource, newConstructor);
-        
+                
         if (newSource == newConstructor) {
             throw new ReferenceError(error + ' source and target arguments should not be identical');
+        }
+        
+        if (!newConstructor.toString().search(/this[\.]parent\(/)) {
+            throw new SyntaxError(error + ' target specifier constructor missing call to this.parent()');
         }
         
         var F = F;

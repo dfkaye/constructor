@@ -100,6 +100,49 @@ test('extend() should complain about identical constructors with reused subclass
   }
 });
 
+test('should fail when missing constructor from extend()', function (t) {
+  t.plan(1);
+  
+  var proto = {
+    // constructor: function () { this.parent(); }
+    log: function () {
+        return this.toString();
+    }
+  };
+  
+  var B = Constructor.extend(Array, proto);
+  var b = new B;
+  var msg;
+  try {
+    msg = b.log();
+    t.fail('should fail - extend() should complain about missing constructor');
+  } catch (e) {
+    t.strictEqual(typeof msg, 'undefined');
+  }
+});
+
+test('extending native Array should fail to inherit generic methods', function (t) {
+  t.plan(1);
+  
+  var proto = {
+    constructor: function () { this.parent(); },
+    log: function () {
+        return this.toString();
+    }
+  };
+  
+  var B = Constructor.extend(Array, proto);
+  var b = new B;
+  var msg;
+  
+  try {
+    msg = b.log();
+    t.fail('should have thrown generic toString error');
+  } catch (e) {
+    t.strictEqual(typeof msg, 'undefined');
+  }
+});
+
 /* template */
 /*
 test('$1 should return $2', function (t) {
