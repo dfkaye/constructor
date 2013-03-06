@@ -77,6 +77,13 @@
          */
         var newSource = (sourceType !== 'function') ? new Constructor(source) : source;
         var newConstructor = (targetType !== 'function') ? new Constructor(target) : target;
+        
+        console.log('%s \n %s', newSource, newConstructor);
+        
+        if (newSource == newConstructor) {
+            throw new ReferenceError(error + ' source and target arguments should not be identical');
+        }
+        
         var F = F;
         var newPrototype;
         
