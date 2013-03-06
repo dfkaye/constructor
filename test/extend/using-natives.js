@@ -18,6 +18,8 @@ var SubArray = Constructor.extend([], {
   constructor: function () {
     this.parent();
     
+    console.log(this.length === this.parent.length);
+    
     // stolen from kangax (http://bit.ly/W66vQW)
     this.push.apply(this, arguments);
   },
@@ -75,7 +77,7 @@ test('SubArray - length append', function (t) {
 });
 
 // failing test offered by @Raynos2
-test('SubArray - length', function (t) {
+test('SubArray - length mangle - something wrong here even if used on a native Array', function (t) {
   var b = new SubArray(0, 1)
   b.length = 0
   t.equal("0" in b, false)
