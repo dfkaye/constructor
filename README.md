@@ -29,13 +29,13 @@ node
 
     cd ./Constructor
   
-    node test/base/anti-pattern.js
-    node test/base/base-pattern.js
+    node test/base/anti-patterns.js
+    node test/base/base-patterns.js
     node test/base/using-natives.js
     
-    node test/extend/anti-pattern.js ___todo___
-    node test/extend/extend-pattern.js
-    node test/extend/using-natives.js ___todo___
+    node test/extend/anti-patterns.js 
+    node test/extend/extend-patterns.js
+    node test/extend/using-natives.js ___array tests ready___
 
 
 npm
