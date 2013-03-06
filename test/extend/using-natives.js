@@ -66,6 +66,23 @@ test('SubArray - index access', function (t) {
   t.strictEqual(b[2], 'last');
 });
 
+// failing test offered by @Raynos2
+test('SubArray - length append', function (t) {
+  var b = new SubArray(0, 1);
+  b[2] = 2;
+  t.equal(b.length, 3);
+  t.end();
+});
+
+// failing test offered by @Raynos2
+test('SubArray - length', function (t) {
+  var b = new SubArray(0, 1)
+  b.length = 0
+  t.equal("0" in b, false)
+  t.equal(b[0], undefined)
+  t.end()
+})
+
 test('SubArray - length', function (t) {
   t.plan(1);
 
