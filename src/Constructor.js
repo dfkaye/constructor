@@ -45,7 +45,9 @@
             throw new TypeError(error + ('object' != sourceType  ? sourceType + " [" + source + "]" : "null"));
         }
 
-        ctr = source.hasOwnProperty('constructor') ? source.constructor : function () {};
+        //console.log('constructor: %s', source.hasOwnProperty('constructor'));
+        
+        ctr = source.constructor !== Object ? source.constructor : function () {};
 
         ctr.prototype = source;
         ctr.prototype.constructor = ctr;
