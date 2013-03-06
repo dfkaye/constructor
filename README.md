@@ -2,8 +2,8 @@
 =====================
 
 Constructor.js - constructor-, prototype- and parent- inheritance module. 
-base case tests __done for now__
-inheritance tests ___in progress___
+* base case tests __done for now__
+* inheritance tests ___in progress___
 
 tape & testling
 ===============
