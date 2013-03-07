@@ -86,10 +86,6 @@
             throw new ReferenceError(error + ' source and target arguments should not be identical');
         }
         
-        if (!newConstructor.toString().search(/this[\.]parent\(/)) {
-            throw new SyntaxError(error + ' target specifier constructor missing call to this.parent()');
-        }
-        
         var F = F;
         var newPrototype;
         
