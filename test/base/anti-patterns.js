@@ -82,12 +82,3 @@ test('should wipeout A.prototype.test() method with reuse call', function (t) {
     t.strictEqual(typeof a.test, 'undefined');
   }
 });
-
-
-/* template */
-/*
-test('$1 should return $2', function (t) {
-  t.plan(1);
-  t.fail('next test to implement');
-});
-*/

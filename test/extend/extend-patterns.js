@@ -142,12 +142,3 @@ test('verify prototype chain D to A', function (t) {
   
   t.strictEquals(d instanceof A, true);
 });
-
-
-/* template */
-/*
-test('$1 should return $2', function (t) {
-  t.plan(1);
-  t.fail('next test to implement');
-});
-*/

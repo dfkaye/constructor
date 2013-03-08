@@ -142,11 +142,3 @@ test('extending native Array should fail to inherit generic methods', function (
     t.strictEqual(typeof msg, 'undefined');
   }
 });
-
-/* template */
-/*
-test('$1 should return $2', function (t) {
-  t.plan(1);
-  t.fail('next test to implement');
-});
-*/

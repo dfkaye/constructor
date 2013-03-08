@@ -54,13 +54,3 @@ test('reuse constructor test() method', function (t) {
   var a = new A();
   t.strictEqual(a.test(), msg);
 });
-
-
-
-/* template */
-/*
-test('$1 should return $2', function (t) {
-  t.plan(1);
-  t.fail('next test to implement');
-});
-*/
