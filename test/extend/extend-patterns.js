@@ -127,7 +127,6 @@ test('prototype D extends function C', function (t) {
 });
 
 test('verify prototype chain D to A', function (t) {
-  t.plan(1);
    
   var name = 'test name';
   var value = 'test value';
@@ -141,4 +140,8 @@ test('verify prototype chain D to A', function (t) {
   var d = new D(name, value, prop);
   
   t.strictEquals(d instanceof A, true);
+  t.strictEquals(d instanceof B, true);
+  t.strictEquals(d instanceof C, true);  
+  t.strictEquals(d instanceof D, true);
+  t.end();
 });
