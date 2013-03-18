@@ -4,6 +4,10 @@
  * YES!  You can extend native constructors, provided you are aware of a couple things.
  * In this set of tests, we'll use extend to subclass the Array constructor and provide workarounds for
  * for constructor initialization and [[Class]] dependent methods (toString()).
+ *
+ * BUT ~ 2 tests provided by @Raynos2 show that modifying the length property directly has side-
+ * effects (like clobbering the array).
+ *
  */
 
 var test = require('tape');
@@ -37,7 +41,29 @@ var SubArray = Constructor.extend([], {
    */
   toString: function () {
     return this.join();
-  }
+  },
+  
+  /**
+   * @method concat - must be defined explicitly
+   *
+   * concat works on the Array object and returns an Array - due to the internal use of [[Class]] by 
+   * the JavaScript engine - so we'll have to shim it.
+   *
+   * THIS IS OBVIOUSLY A CODE SMELL ~ but it does work on the offending subclass.
+   */
+  concat: function () {
+  
+    var instance = new this.constructor();
+    
+    for (var i = 0; i < this.length; i += 1) {
+        instance.push(this[i]);
+    }
+    for ( i = 0; i < arguments.length; i += 1) {
+        instance.push(arguments[i]);
+    }
+    
+    return instance;
+  },
 });
   
 test('SubArray - verify the toString() fix', function (t) {
@@ -45,6 +71,16 @@ test('SubArray - verify the toString() fix', function (t) {
   var b = new SubArray('first', 'middle', 'last');
 
   t.strictEqual(b.toString(), 'first,middle,last');
+  t.end();
+});
+
+test('SubArray - verify the concat fix', function (t) {
+
+  var b = new SubArray('first');
+  
+  b = b.concat('last');
+  
+  t.strictEqual(b.last(), 'last');
   t.end();
 });
 
@@ -115,7 +151,7 @@ test('SubArray - length reset', function (t) {
   t.end();
 });
 
-test('SubArray - length', function (t) {
+test('SubArray - length after create', function (t) {
 
   var b = new SubArray('first', 'middle', 'last');
 
