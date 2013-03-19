@@ -9,18 +9,33 @@ Motivation
 Though there are problems with inheritance, it should just work and JavaScript 
 should support it.  [See this gist for details](https://gist.github.com/dfkaye/4948675 "constructor-api-proposal").
 
-API
-===
+tape & testling
+===============
 
-Constructor(base) ~ specify a base object with 'constructor' defined as a 
+Using tape to test in order to use testling.  
+tape works on node.js command line
+testling worked for a while but has been broken lately because of browserify 
+___which is so terrible you have no idea.___
+
+[![browser support](http://ci.testling.com/dfkaye/Constructor.png)](http://ci.testling.com/dfkaye/Constructor)
+
+testem
+======
+
+___TODO___
+
+Constructor API
+===============
+
+__Constructor(base)__ ~ specify a base object with 'constructor' defined as a 
     function.  If constructor is not defined, an empty function is provided.
     The constructor function's prototype is then set to the base object, and the
     function is returned.  If you pass in a function, that function is returned
-    immediately withou modification.  You can use the 'new' keyword or not.
+    immediately withou modification.  Use of the 'new' keyword is optional.
     
     Example:
     
-    Dialog = Constructor({
+    Dialog = new Constructor({
         constructor: function Dialog(contentNode) {
             this.contentNode = contentNode;
         },
@@ -38,11 +53,15 @@ Constructor(base) ~ specify a base object with 'constructor' defined as a
         }
     });
     
-Prior Art ~ this implementation is based on the type() method suggested by
+    Use:
+    
+    var a = new Dialog();
+    
+__Prior Art__ ~ this implementation is based on the type() method suggested by
     Nicholas Zakas in his post [Custom types (classes) using object literals in 
     JavaScript](http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ "Custom types (classes) using object literals in JavaScript")
     
-Constructor.extend(base, child) ~ specify a base object or function to inherit 
+__Constructor.extend(base, child)__ ~ specify a base object or function to inherit 
     from, and a child object or function that will inherit from the base.  The
     base is referenced from the child by __this.parent__.  In the constructor,
     use it as a function call initially, then as an object thereafter.
@@ -56,14 +75,14 @@ Constructor.extend(base, child) ~ specify a base object or function to inherit
             
             this.state = state;
             
-            if (this.state.displayOnCreate === true && 1this.state.shown) {
+            if (this.state.displayOnCreate === true && !this.state.shown) {
                 this.show();
             }
         },
         hide: function () {
             if (this.state.shown) {
             
-                this.parent.hide(); // delegate to the parent
+                this.parent.hide(); // __delegate to the parent__
                 
                 this.state.shown = false;
             }
@@ -82,12 +101,12 @@ Constructor.extend(base, child) ~ specify a base object or function to inherit
 Statics or Class-level properties
 =================================
 
-These are not inherited by the Constructor.extend() operation as statics are 
+These are __not__ inherited by the Constructor.extend() operation as statics are 
 defined on a constructor directly, not on its prototype (which provides a map 
 for instances).  Inheriting statics is not regarded as a good practice anyway in
 Java land.  
 
-In the JavaScript world using Constructor.js, you can still access such
+In the JavaScript world, using Constructor.js, you can still access such
 properties by referring to the parent.constructor (no call or apply necessary):
 
     Example
@@ -110,30 +129,6 @@ properties by referring to the parent.constructor (no call or apply necessary):
         }
     });
     
-    
-
-
-Tests
-=====
-
-* base case tests __done for now__
-* inheritance tests ___done for now___
-* anti-pattern tests, natives, statics ___done for now___
-
-tape & testling
-===============
-
-Using tape to test in order to use testling.  
-tape works on node.js command line
-testling worked for a while but has been broken lately because of browserify 
-___which is so terrible you have no idea.___
-
-[![browser support](http://ci.testling.com/dfkaye/Constructor.png)](http://ci.testling.com/dfkaye/Constructor)
-
-testem
-======
-
-___TODO___
 
 git & github
 ============
@@ -142,8 +137,15 @@ Getting comfortable with command line (git bash ftw) and github (just about pain
 
 ___Always edit package.json on github directly to remove leading whitespace___
 
+Tests
+=====
 
-On Noode.js command line:
+* base case tests __done for now__
+* extend case tests ___done for now___
+* anti-pattern tests, using-natives, inherit-statics ___done for now___
+
+
+On Node.js command line:
 =========================
 
     cd ./Constructor
@@ -154,7 +156,7 @@ On Noode.js command line:
     
     node test/extend/anti-patterns.js 
     node test/extend/extend-patterns.js
-    node test/extend/using-natives.js ___array tests done___
+    node test/extend/using-natives.js
     node test/extend/inherit-statics.js ___example from CoffeeScript book - shows what's wrong with the example as opposed to CoffeeScript super___
 
 npm
