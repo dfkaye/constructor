@@ -46,25 +46,24 @@ var SubArray = Constructor.extend([], {
   /**
    * @method concat - must be defined explicitly
    *
-   * concat works on the Array object and returns an Array - due to the internal use of [[Class]] by 
-   * the JavaScript engine - so we'll have to shim it.
-   *
-   * THIS IS OBVIOUSLY A CODE SMELL ~ but it does work on the offending subclass.
+   * Array.concat works on the Array object and returns a new Array - we have to do the same thing, 
+   * which is to return a new SubArray.  And that means we have to shim it.
    */
   concat: function () {
-  
+    
     var instance = new this.constructor();
     
     for (var i = 0; i < this.length; i += 1) {
         instance.push(this[i]);
     }
-    for ( i = 0; i < arguments.length; i += 1) {
+    for (i = 0; i < arguments.length; i += 1) {
         instance.push(arguments[i]);
     }
     
     return instance;
   },
 });
+
   
 test('SubArray - verify the toString() fix', function (t) {
 
