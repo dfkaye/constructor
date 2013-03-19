@@ -7,11 +7,8 @@
  * This short suite explores the anti-pattern of attempting to inherit statics.
  *
  * The example is taken from Programming in CoffeeScript by Mark Bates, Addison-Wesley, pp. 147-150, 
- * where the author shows that CoffeeScript does not support static inheritance through the 'super' 
- * keyword.
- *
- * However, the problems are more fundamental and NOT specific to CoffeeScript.
- *
+ * where the author shows that CoffeeScript does not support static inheritance through the __super__ 
+ * keyword.  However, the example contains a more fundamental problem NOT specific to CoffeeScript.
  */
 
 var test = require('tape');

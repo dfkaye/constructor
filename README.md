@@ -12,10 +12,9 @@ should support it.  [See this gist for details](https://gist.github.com/dfkaye/4
 tape & testling
 ===============
 
-Using tape to test in order to use testling.  
-tape works on node.js command line
+Using tape to test in order to use testling.  tape works on node.js command line. 
 testling worked for a while but has been broken lately because of browserify 
-___which is so terrible you have no idea.___
+__which is so terrible you have no idea.__
 
 [![browser support](http://ci.testling.com/dfkaye/Constructor.png)](http://ci.testling.com/dfkaye/Constructor)
 
@@ -23,6 +22,7 @@ testem
 ======
 
 ___TODO___
+
 
 Constructor API
 ===============
@@ -55,11 +55,13 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
     
     Use:
     
-    var a = new Dialog();
+    var a = new Dialog({ id: 'superFunHappyMockContentNode'});
+    
     
 __Prior Art__ ~ this implementation is based on the type() method suggested by
     Nicholas Zakas in his post [Custom types (classes) using object literals in 
-    JavaScript](http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ "Custom types (classes) using object literals in JavaScript")
+    JavaScript](http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ 
+    "Custom types (classes) using object literals in JavaScript")
     
 __Constructor.extend(base, child)__ ~ specify a base object or function to inherit 
     from, and a child object or function that will inherit from the base.  The
@@ -130,19 +132,12 @@ properties by referring to the parent.constructor (no call or apply necessary):
     });
     
 
-git & github
-============
-
-Getting comfortable with command line (git bash ftw) and github (just about painless). 
-
-___Always edit package.json on github directly to remove leading whitespace___
-
 Tests
 =====
 
 * base case tests __done for now__
 * extend case tests ___done for now___
-* anti-pattern tests, using-natives, inherit-statics ___done for now___
+* anti-pattern tests, inherit-statics, using-natives ___done for now___
 
 
 On Node.js command line:
@@ -157,7 +152,42 @@ On Node.js command line:
     node test/extend/anti-patterns.js 
     node test/extend/extend-patterns.js
     node test/extend/using-natives.js
-    node test/extend/inherit-statics.js ___example from CoffeeScript book - shows what's wrong with the example as opposed to CoffeeScript super___
+    node test/extend/inherit-statics.js 
+    
+    
+The /base and /extend test cases show the intended usage of Constructor() and 
+Constructor.extend().
+
+The /base and /extend directories contain an ___anti-patterns.js___ test which 
+shows a few clever and/or misguided uses that have surprising side-effects. 
+
+Under /extend is the inherit-statics.js tests which shows how to access a static 
+attribute from a parent constructor, but goes into some detail about the example
+from which this test is derived.   The example is taken from __Programming in 
+CoffeeScript__ by Mark Bates, Addison-Wesley, pp. 147-150, where the author 
+shows that CoffeeScript does not support static inheritance through the 
+__super__ keyword.  However, the example contains a more fundamental problem NOT 
+specific to CoffeeScript.
+
+*There will be a rant about that example on my gists eventually.*
+
+
+Extending Natives?
+==================
+
+YES, you can inherit from Native functions but there are some caveats - see the 
+[test/extend/using-natives.js](https://github.com/dfkaye/Constructor/blob/master/test/extend/using-natives.js) 
+file for a complete implementation of a SubArray that inherits from the native 
+Array constructor.
+
+
+git & github
+============
+
+Get comfortable with command line (git bash ftw) and github (just about painless). 
+
+___Always edit package.json on github directly to remove leading whitespace___
+
 
 npm
 ============
