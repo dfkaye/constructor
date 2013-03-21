@@ -18,12 +18,6 @@ __which is so terrible you have no idea.__
 
 [![browser support](http://ci.testling.com/dfkaye/Constructor.png)](http://ci.testling.com/dfkaye/Constructor)
 
-testem
-======
-
-___TODO___
-
-
 Constructor API
 ===============
 
@@ -169,7 +163,7 @@ shows that CoffeeScript does not support static inheritance through the
 __super__ keyword.  However, the example contains a more fundamental problem NOT 
 specific to CoffeeScript.
 
-*There will be a rant about that example on my gists eventually.*
+*There will be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
 
 
 Extending Natives?
