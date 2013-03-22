@@ -10,39 +10,45 @@ var Constructor = require('../../src/Constructor.js').Constructor;
 function Base() {};
 
 test('should return same function without new keyword', function (t) {
-  t.plan(1);
+
   t.strictEqual(Constructor(Base), Base);
+  t.end();
 });
 
 test('should return same function using new keyword', function (t) {
-  t.plan(1);
+
   t.strictEqual(new Constructor(Base), Base);
+  t.end();
 });
 
 test('should return empty constructor', function (t) {
-  t.plan(1);
+
   t.strictEqual(typeof new Constructor({}), 'function');
+  t.end();
 });
 
 test('should return Base as constructor', function (t) {
-  t.plan(1);
+
   t.strictEqual(new Constructor({
         constructor: Base
     }), Base);
+  
+  t.end();
 });
 
 
 test('reuse constructor', function (t) {
-  t.plan(1);
+
   var A = Constructor({
     constructor: Base
   });
   
   t.strictEqual(Constructor(A), Base);
+  t.end();
 });
 
 test('reuse constructor test() method', function (t) {
-  t.plan(1);
+
   var msg = 'test string';
   var A = new Constructor({
     constructor: Base,
@@ -52,5 +58,7 @@ test('reuse constructor test() method', function (t) {
   });
   
   var a = new A();
+  
   t.strictEqual(a.test(), msg);
+  t.end();
 });

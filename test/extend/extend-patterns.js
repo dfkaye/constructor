@@ -21,12 +21,12 @@ fixtures.A = Constructor({
 });
 
 test('A should just work', function (t) {
-    t.plan(1);
-    
+   
     var name = 'test name';
     var a = new fixtures.A(name);
     
     t.strictEquals(a.test(), name);
+    t.end();
 });
 
 
@@ -50,24 +50,22 @@ fixtures.B.prototype.test = function test() {
   
 test('function B extends function A', function (t) {
 
-  t.plan(1);
-  
   var name = 'test name';
   var value = 'test value';
-  
   var b = new fixtures.B(name, value);
   
   t.strictEquals(b.test(), b.getValue() + ':' + b.getName());
+  t.end();
 });
 
 test('parent methods are public', function (t) {
-  t.plan(1);
-   
+
   var name = 'test name';
   var value = 'test value';
   var b = new fixtures.B(name, value);
   
   t.strictEquals(b.parent.getName(), b.getName());
+  t.end();
 });
 
 
@@ -83,8 +81,7 @@ fixtures.C = {
   };
 
 test('prototype C extends function B', function (t) {
-  t.plan(1);
-   
+
   var name = 'test name';
   var value = 'test value';
   
@@ -93,6 +90,7 @@ test('prototype C extends function B', function (t) {
   var c = new fixtures.C.constructor(name, value);
   
   t.strictEquals(c.test(), name + ':' + value + " >> " + value + ':' + name);
+  t.end();
 });
 
 
@@ -113,8 +111,7 @@ fixtures.D = {
 };
 
 test('prototype D extends function C', function (t) {
-  t.plan(1);
-   
+  
   var name = 'test name';
   var value = 'test value';
   var prop = 'test prop';
@@ -124,6 +121,7 @@ test('prototype D extends function C', function (t) {
   var d = new fixtures.D.constructor(name, value, prop);
   
   t.strictEquals(d.test(), prop + " >> " + name + ':' + value + " >> " + value + ':' + name);
+  t.end();
 });
 
 test('verify prototype chain D to A', function (t) {

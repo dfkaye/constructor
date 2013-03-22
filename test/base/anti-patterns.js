@@ -13,7 +13,7 @@ var Constructor = require('../../src/Constructor.js').Constructor;
 function Base() {};
 
 test('should fail when argument not specified', function (t) {
-  t.plan(1);
+
   var A;
 
   try {
@@ -22,10 +22,12 @@ test('should fail when argument not specified', function (t) {
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
   }
+  
+  t.end();
 });
 
 test('should fail when argument is boolean', function (t) {
-  t.plan(1);
+
   var A;
 
   try {
@@ -34,10 +36,12 @@ test('should fail when argument is boolean', function (t) {
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
   }
+  
+  t.end();
 });
 
 test('should fail when argument is number', function (t) {
-  t.plan(1);
+
   var A;
 
   try {
@@ -46,10 +50,12 @@ test('should fail when argument is number', function (t) {
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
   }
+  
+  t.end();
 });
 
 test('should fail when argument is string', function (t) {
-  t.plan(1);
+
   var A;
 
   try {
@@ -58,10 +64,12 @@ test('should fail when argument is string', function (t) {
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
   }
+  
+  t.end();
 });
 
 test('should wipeout A.prototype.test() method with reuse call', function (t) {
-  t.plan(1);
+
   var msg = 'test string';
   var A = new Constructor({
     constructor: Base,
@@ -81,4 +89,6 @@ test('should wipeout A.prototype.test() method with reuse call', function (t) {
   } catch (e) {
     t.strictEqual(typeof a.test, 'undefined');
   }
+  
+  t.end();
 });

@@ -11,7 +11,7 @@ var Constructor = require('../../src/Constructor.js').Constructor;
 function Base() {};
 
 test('should fail when second argument not specified', function (t) {
-  t.plan(1);
+
   var A;
 
   try {
@@ -20,10 +20,12 @@ test('should fail when second argument not specified', function (t) {
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
   }
+  
+  t.end();
 });
 
 test('should fail when second argument is boolean', function (t) {
-  t.plan(1);
+
   var A;
 
   try {
@@ -32,10 +34,12 @@ test('should fail when second argument is boolean', function (t) {
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
   }
+  
+  t.end();
 });
 
 test('should fail when second argument is number', function (t) {
-  t.plan(1);
+
   var A;
 
   try {
@@ -44,10 +48,12 @@ test('should fail when second argument is number', function (t) {
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
   }
+  
+  t.end();
 });
 
 test('should fail when second argument is string', function (t) {
-  t.plan(1);
+
   var A;
 
   try {
@@ -56,11 +62,12 @@ test('should fail when second argument is string', function (t) {
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
   }
+  
+  t.end();
 });
 
 test('extend() should complain about identical Base constructors', function (t) {
-  t.plan(1);
-  
+
   var A = Constructor({
     constructor: Base
   });
@@ -77,11 +84,12 @@ test('extend() should complain about identical Base constructors', function (t) 
   } catch (e) {
     t.strictEqual(typeof B, 'undefined');
   }
+  
+  t.end();
 });
 
 test('extend() should complain about identical constructors with reused subclass', function (t) {
-  t.plan(1);
-  
+
   var A = Constructor({
     constructor: Base
   });
@@ -98,11 +106,12 @@ test('extend() should complain about identical constructors with reused subclass
   } catch (e) {
     t.strictEqual(typeof B, 'undefined');
   }
+  
+  t.end();
 });
 
 test('should fail when missing constructor from extend()', function (t) {
-  t.plan(1);
-  
+
   var proto = {
     // constructor: function () { this.parent(); }
     log: function () {
@@ -113,17 +122,19 @@ test('should fail when missing constructor from extend()', function (t) {
   var B = Constructor.extend(Array, proto);
   var b = new B;
   var msg;
+  
   try {
     msg = b.log();
     t.fail('should fail - extend() should complain about missing constructor');
   } catch (e) {
     t.strictEqual(typeof msg, 'undefined');
   }
+  
+  t.end();
 });
 
 test('extending native Array should fail to inherit generic methods', function (t) {
-  t.plan(1);
-  
+
   var proto = {
     constructor: function () { this.parent(); },
     log: function () {
@@ -141,4 +152,6 @@ test('extending native Array should fail to inherit generic methods', function (
   } catch (e) {
     t.strictEqual(typeof msg, 'undefined');
   }
+  
+  t.end();
 });
