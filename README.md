@@ -14,7 +14,7 @@ tape & testling
 
 Using tape to test in order to use testling.  tape works on node.js command line. 
 testling worked for a while but has been broken lately because of browserify 
-__which is so terrible you have no idea.__
+__thanks__
 
 [![browser support](http://ci.testling.com/dfkaye/Constructor.png)](http://ci.testling.com/dfkaye/Constructor)
 
