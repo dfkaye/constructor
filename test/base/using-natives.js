@@ -1,4 +1,4 @@
-﻿/**
+/**
  * test Constructor with native object instances
  *
  * WARNING - passing in a Native constructor is actually an ANTI-PATTERN

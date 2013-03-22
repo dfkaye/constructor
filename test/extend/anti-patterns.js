@@ -1,4 +1,4 @@
-﻿/**
+/**
  * test Constructor.extend() calls - should fail
  *
  */

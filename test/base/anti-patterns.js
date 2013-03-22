@@ -1,4 +1,4 @@
-﻿/**
+/**
  * test basic Constructor() calls with primitves - should fail
  * 
  * these patterns constitute the case for the extend() method

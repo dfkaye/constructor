@@ -1,4 +1,4 @@
-﻿/**
+/**
  * test basic Constructor() calls
  */
 

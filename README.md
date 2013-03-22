@@ -1,4 +1,4 @@
-﻿Constructor.js
+Constructor.js
 =====================
 
 Constructor.js ~ constructor-, prototype- and parent- inheritance module. 

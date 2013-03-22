@@ -1,4 +1,4 @@
-﻿/**
+/**
  * test Constructor.extend() with natives
  *
  * YES!  You can extend native constructors, provided you are aware of a couple things.
