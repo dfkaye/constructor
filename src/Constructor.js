@@ -140,4 +140,4 @@
         return newConstructor;
     };
     
-}(this));
+}((typeof module != 'undefined' && module.exports) ? module.exports : this));
