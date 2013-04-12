@@ -80,7 +80,9 @@ test('SubArray - verify the toString() fix', function (t) {
 
   var b = new SubArray('first', 'middle', 'last');
 
-  t.strictEqual(b.toString(), 'first,middle,last');
+  console.log(b.toString());
+  
+  t.strictEqual(b.toString(), 'first,middle,last', 'toString() fix');
   t.end();
 });
 
