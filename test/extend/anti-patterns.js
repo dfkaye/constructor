@@ -136,7 +136,6 @@ test('should fail to inherit instance closure when parent() not called from cons
     msg = b.log();
     t.fail('should fail with missing method error');
   } catch (e) {
-    t.ok(e.message.indexOf("no method 'test'") !== -1, "should throw \"no method 'test'\" error");
     t.strictEqual(typeof msg, 'undefined', 'msg should be undefined');
   }
   
