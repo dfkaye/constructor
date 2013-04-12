@@ -40,7 +40,7 @@ var SubArray = Constructor.extend([], {
    * so we'll have to shim it (stealing from kangax again).
    */
   toString: function () {
-    return this.join('');
+    return this.join();
   },
   
   /**
