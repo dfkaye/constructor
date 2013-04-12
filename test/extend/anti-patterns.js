@@ -110,24 +110,34 @@ test('extend() should complain about identical constructors with reused subclass
   t.end();
 });
 
-test('should fail when missing constructor from extend()', function (t) {
+test('should fail to inherit instance closure when parent() not called from constructor', function (t) {
 
+  var closure_msg = "closure_msg";
+  var A = {
+    constructor: function () {
+      this.test = function () {
+        return closure_msg;
+      }    
+    }   
+  };
+  
   var proto = {
     // constructor: function () { this.parent(); }
     log: function () {
-        return this.toString();
+        return this.test();
     }
   };
   
-  var B = Constructor.extend(Array, proto);
+  var B = Constructor.extend(A, proto);
   var b = new B;
   var msg;
-  
+
   try {
     msg = b.log();
-    t.fail('should fail - extend() should complain about missing constructor');
+    t.fail('should fail with missing method error');
   } catch (e) {
-    t.strictEqual(typeof msg, 'undefined');
+    t.ok(e.message.indexOf("no method 'test'") !== -1, "should throw \"no method 'test'\" error");
+    t.strictEqual(typeof msg, 'undefined', 'msg should be undefined');
   }
   
   t.end();
