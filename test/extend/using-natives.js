@@ -16,9 +16,9 @@ var Constructor = require('../../src/Constructor.js').Constructor;
 /*
  * FIXTURE - fairly complete example of extending the native built-in Arrays.
  *
- * NOTE:  the first argument here could also be just the Array constructor.
+ * NOTE:  the first argument here should be the Array constructor.
  */
-var SubArray = Constructor.extend([], {
+var SubArray = Constructor.extend(Array, {
   constructor: function () {
     this.parent();
     
@@ -37,12 +37,12 @@ var SubArray = Constructor.extend([], {
    * kangax (http://bit.ly/W66vQW), David Herman in Effective JavaScript (item 40, pp. 106ff), and some 
    * learning tests tell us that the Array.prototype.toString() method fails on objects whose 
    * constructor is not really an Array - due to the internal use of [[Class]] by JavaScript engine - 
-   * so we'll have to shim it (stealing from kangax again).
+   * so we'll have to shim it (modified from kangax solution).
    */
   toString: function () {
   
     var delimiter = this.length > 0 ? ',' : '';
-
+    
     return this.join(delimiter);
   },
   

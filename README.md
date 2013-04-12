@@ -6,16 +6,16 @@ Constructor.js ~ constructor-, prototype- and parent- inheritance module.
 Motivation
 ==========
 
-Though there are problems with inheritance, it should just work and JavaScript 
-should support it.  [See this gist for details](https://gist.github.com/dfkaye/4948675 "constructor-api-proposal").
+Though there are problems with inheritance (mainly overuse and coupling), it 
+should just work and JavaScript should support it.  Yes, it already "does" but 
+[see this proposal for a better api](https://gist.github.com/dfkaye/4948675 "constructor-api-proposal").
 
 tape & testling
 ===============
 
-Using tape to test in order to use testling.  tape works on node.js command line. 
-
-[testling](https://ci.testling.com/dfkaye/Constructor) worked for a 
-while but has been broken lately (bad service hook setting)
+Using [tape](https://github.com/substack/tape) to run tests from the node.js 
+command line, and in order to use [testling](http://ci.testling.com/) from 
+github service hook.
 
 [![browser support](http://ci.testling.com/dfkaye/Constructor.png)](http://ci.testling.com/dfkaye/Constructor)
 
@@ -57,6 +57,9 @@ __Prior Art__ ~ this implementation is based on the type() method suggested by
     Nicholas Zakas in his post [Custom types (classes) using object literals in 
     JavaScript](http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ 
     "Custom types (classes) using object literals in JavaScript")
+    
+    Zakas' method is in turn based on a desugaring of Jeremy Askenas' suggested
+    api for the class, extend, super keyword proposals for ES6.
     
 __Constructor.extend(base, child)__ ~ specify a base object or function to inherit 
     from, and a child object or function that will inherit from the base.  The
@@ -118,11 +121,11 @@ properties by referring to the parent.constructor (no call or apply necessary):
     
     Post = Constructor.extend(Post, {
         constructor: function () {
-        
+            //...
         },
         accessParentStatic: function () {
             
-            return this.parent.constructor.staticMethod(this);
+            return this.parent.constructor.staticMethod(this);  // <- this way
         }
     });
     
