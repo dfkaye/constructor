@@ -16,9 +16,9 @@ var Constructor = require('../../src/Constructor.js').Constructor;
 /*
  * FIXTURE - fairly complete example of extending the native built-in Arrays.
  *
- * NOTE:  the first argument here should be the Array constructor.
+ * NOTE:  the first argument here could be the Array constructor.
  */
-var SubArray = Constructor.extend(Array, {
+var SubArray = Constructor.extend([], {
   constructor: function () {
     this.parent();
     
