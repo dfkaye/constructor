@@ -142,7 +142,7 @@ test('should fail to inherit instance closure when parent() not called from cons
   t.end();
 });
 
-test('extending native Array should fail to inherit generic methods', function (t) {
+/*test('extending native Array should fail to inherit generic methods', function (t) {
 
   var proto = {
     constructor: function () { this.parent(); },
@@ -163,4 +163,4 @@ test('extending native Array should fail to inherit generic methods', function (
   }
   
   t.end();
-});
+});*/
