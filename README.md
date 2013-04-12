@@ -17,7 +17,7 @@ Using [tape](https://github.com/substack/tape) to run tests from the node.js
 command line, and in order to use [testling](http://ci.testling.com/) from 
 github service hook.
 
-[![browser support](http://ci.testling.com/dfkaye/Constructor.png)](http://ci.testling.com/dfkaye/Constructor)
+[![browser support](http://ci.testling.com/dfkaye/Constructor.png?force)](http://ci.testling.com/dfkaye/Constructor)
 
 Constructor API
 ===============
