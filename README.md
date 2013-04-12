@@ -17,7 +17,10 @@ Using [tape](https://github.com/substack/tape) to run tests from the node.js
 command line, and in order to use [testling](http://ci.testling.com/) from 
 github service hook.
 
-[![browser support](http://ci.testling.com/dfkaye/Constructor.png?force)](http://ci.testling.com/dfkaye/Constructor)
+[![browser support](http://ci.testling.com/dfkaye/Constructor.png?y=n)](http://ci.testling.com/dfkaye/Constructor)
+
+[Things I've found about checking things in for testling to work](https://gist.github.com/dfkaye/5225546)
+
 
 Constructor API
 ===============
@@ -26,7 +29,8 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
     function.  If constructor is not defined, an empty function is provided.
     The constructor function's prototype is then set to the base object, and the
     function is returned.  If you pass in a function, that function is returned
-    immediately withou modification.  Use of the 'new' keyword is optional.
+    immediately withou modification.  Use of the 'new' keyword when calling 
+    Constructor() is optional.
     
     Example:
     
@@ -53,18 +57,22 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
     var a = new Dialog({ id: 'superFunHappyMockContentNode'});
     
     
-__Prior Art__ ~ this implementation is based on the type() method suggested by
-    Nicholas Zakas in his post [Custom types (classes) using object literals in 
-    JavaScript](http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ 
-    "Custom types (classes) using object literals in JavaScript")
+__Prior Art__ 
+
+This implementation is based on the type() method suggested byNicholas Zakas in 
+his post [Custom types (classes) using object literals in JavaScript]
+(http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ 
+"Custom types (classes) using object literals in JavaScript")
     
-    Zakas' method is in turn based on a desugaring of Jeremy Askenas' suggested
-    api for the class, extend, super keyword proposals for ES6.
+Zakas' method is in turn based on a desugaring of Jeremy Askenas' suggested
+api for the class, extend, super keyword proposals for ES6.
     
-__Constructor.extend(base, child)__ ~ specify a base object or function to inherit 
-    from, and a child object or function that will inherit from the base.  The
-    base is referenced from the child by __this.parent__.  In the constructor,
-    use it as a function call initially, then as an object thereafter.
+__Constructor.extend(base, child)__
+
+Specify a base object or function to inherit from, and a child object or 
+function that will inherit from the base.  The base is referenced from the child 
+by __this.parent__.  In the constructor, use it as a function call initially, 
+then as an object thereafter.
     
     Example - hastily presented:
 
@@ -194,8 +202,6 @@ git & github
 ============
 
 Get comfortable with command line (git bash ftw) and github (just about painless). 
-
-___Always edit package.json on github directly to remove leading whitespace___
 
 
 npm
