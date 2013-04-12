@@ -37,7 +37,7 @@ var SubArray = Constructor.extend(Array, {
    * kangax (http://bit.ly/W66vQW), David Herman in Effective JavaScript (item 40, pp. 106ff), and some 
    * learning tests tell us that the Array.prototype.toString() method fails on objects whose 
    * constructor is not really an Array - due to the internal use of [[Class]] by JavaScript engine - 
-   * so we'll have to shim it.  For IE 6-8 we have to return an Array instance directly.
+   * so we'll have to shim it, using an output string directly.
    */
   toString: function () {
   
