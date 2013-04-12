@@ -173,10 +173,21 @@ specific to CoffeeScript.
 Extending Natives?
 ==================
 
-YES, you can inherit from Native functions but there are some caveats - see the 
+YES, you can inherit from Native functions, but there are some caveats - see the 
 [test/extend/using-natives.js](https://github.com/dfkaye/Constructor/blob/master/test/extend/using-natives.js) 
 file for a complete implementation of a SubArray that inherits from the native 
 Array constructor.
+
+And the caveats?  The use of the internal [[Class]] identifier in the JS engines 
+differs between IE 6-8 and all the others (not surprisingly) - but all have a 
+common restriction in that special methods based on the [[Class]] will fail on 
+any objects not identified as constructed by that [[Class]].
+
+tl;dr - 
+* subclassing Array requires overwriting concat() and toString() methods. 
+* IE 6-8 iterations fail on 'this.length' on subarray instances.  
+* IE 6-7 don't allow subclasses to inherit any methods in this implementation of 
+  constructor inheritance.
 
 
 git & github
