@@ -145,6 +145,9 @@ Tests
 * extend case tests ___done for now___
 * anti-pattern tests, inherit-statics, using-natives ___done for now___
 
+The only failing tests are in extend/using-natives.js, and only in IE 6, 7, & 8.
+See the [Extending Natives?](#natives) section further down.
+
 
 On Node.js command line:
 =========================
@@ -178,6 +181,7 @@ specific to CoffeeScript.
 *There will be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
 
 
+<a id="natives"></a>
 Extending Natives?
 ==================
 
