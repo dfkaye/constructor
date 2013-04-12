@@ -34,13 +34,13 @@ var SubArray = Constructor.extend([], {
   /**
    * @method toString - must be defined explicitly
    *
-   * kangax (http://bit.ly/W66vQW), effective javascript (item 40, pp. 106ff), and some learning 
-   * tests tell us that the Array.prototype.toString() method fails on objects whose constructor is
-   * not really an Array - due to the internal use of [[Class]] by the JavaScript engine - so we'll 
-   * have to shim it.
+   * kangax (http://bit.ly/W66vQW), David Herman in Effective JavaScript (item 40, pp. 106ff), and some 
+   * learning tests tell us that the Array.prototype.toString() method fails on objects whose 
+   * constructor is not really an Array - due to the internal use of [[Class]] by JavaScript engine - 
+   * so we'll have to shim it (stealing from kangax again).
    */
   toString: function () {
-    return this.join();
+    return this.join('');
   },
   
   /**
