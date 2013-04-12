@@ -47,7 +47,7 @@ var SubArray = Constructor.extend(Array, {
         array.push(this[i]);
     }
 
-    return array.join(',');
+    return array.join();
   },
   
   /**
@@ -75,8 +75,6 @@ var SubArray = Constructor.extend(Array, {
 test('SubArray - verify the toString() fix', function (t) {
 
   var b = new SubArray('first', 'middle', 'last');
-
-  console.log(b.toString());
   
   t.strictEqual(b.toString(), 'first,middle,last', 'toString() fix');
   t.end();
