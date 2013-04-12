@@ -41,17 +41,13 @@ var SubArray = Constructor.extend(Array, {
    */
   toString: function () {
   
-    var delimiter = '';
-    var comma = ',';
-    var arrayString = '';
+    var array = [];
     
     for (var i = 0; i < this.length; i += 1) {
-        arrayString += delimiter + this[i];
-        
-        delimiter = comma;
+        array.push(this[i]);
     }
-    
-    return arrayString;
+
+    return array.join(',');
   },
   
   /**
