@@ -17,7 +17,7 @@ Using [tape](https://github.com/substack/tape) to run tests from the node.js
 command line, and in order to use [testling](http://ci.testling.com/) from the
 github service hook.
 
-[![browser support](https://ci.testling.com/dfkaye/Constructor.png?y=n)](https://ci.testling.com/dfkaye/Constructor)
+[![browser support](https://ci.testling.com/dfkaye/Constructor.png)](https://ci.testling.com/dfkaye/Constructor)
 
 [Things I've found about checking things in for testling to work](https://gist.github.com/dfkaye/5225546)
 
