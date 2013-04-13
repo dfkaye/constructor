@@ -14,7 +14,7 @@ tape & testling
 ===============
 
 Using [tape](https://github.com/substack/tape) to run tests from the node.js 
-command line, and in order to use [testling](http://ci.testling.com/) from 
+command line, and in order to use [testling](http://ci.testling.com/) from the
 github service hook.
 
 [![browser support](http://ci.testling.com/dfkaye/Constructor.png?y=n)](http://ci.testling.com/dfkaye/Constructor)
@@ -146,7 +146,7 @@ Tests
 * anti-pattern tests, inherit-statics, using-natives ___done for now___
 
 The only failing tests are in extend/using-natives.js, and only in IE 6, 7, & 8.
-See the [Extending Natives?](#natives) section further down.
+See the [Extending Natives?](#extending-natives) section further down.
 
 
 On Node.js command line:
@@ -181,7 +181,7 @@ specific to CoffeeScript.
 *There will be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
 
 
-<a id="natives"></a>
+<a id="extending-natives"></a>
 Extending Natives?
 ==================
 
