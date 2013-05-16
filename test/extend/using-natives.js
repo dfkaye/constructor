@@ -20,8 +20,8 @@ var Constructor = require('../../src/Constructor.js').Constructor;
  */
 var SubArray = Constructor.extend([], {
   constructor: function () {
-    this.parent();
-    
+    [].slice.call(this);
+    //this.parent();
     // stolen from kangax (http://bit.ly/W66vQW)
     this.push.apply(this, arguments);
   },
@@ -113,19 +113,23 @@ test('SubArray - index access', function (t) {
 // failing tests offered by @Raynos2 ~ converted to "passing" by expecting exceptions
 test('SubArray - length append', function (t) {
 
+  var message = 'length not modified';
   var b = new SubArray(0, 1);
   
   var len = b.length;
   
-  b[2] = 2;
+  b[len] = len;
   
+  // fails
+  //t.strictEqual(b.length, len + 1);
+
   try {   
     if (b.length === len) {
-      throw new Error('length not modified');
+      throw new Error(message);
     }
-    t.fail('length somehow modified');
+    t.fail('length unexpectedly modified');
   } catch (e) {
-    t.pass(e.message);
+    t.strictEqual(e.message, message);
   }
   
   t.end();

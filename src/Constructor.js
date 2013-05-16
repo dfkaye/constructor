@@ -3,7 +3,7 @@
  *  author:   @dfkaye - david.kaye
  *	date:	2012-10-30
  *
- *	To-DO 
+ *	To-DO
  *    - commonjs module support for global scope and exports
  *    - better 'actual' support for extending natives (like Array) - could be bikeshedding, though...
  *
@@ -12,31 +12,38 @@
  *
  *   12/23/12
  *      renamed method .create to .extend
- *      made .extend require both args, not just one 
+ *      made .extend require both args, not just one
  *      re-formatted defn to IIFE for pseudo-commonjs
  *
  *   3/3/13
  *      github repo opened ~ test factorings in progress
  */
+
 ;(function (exports) {
 
     exports.Constructor = Constructor;
-    
+
     /**
      *  @constructor function Constructor
-     *  
+     *
      *  @param source - source must be either a function or an object specifier
      *  @return function - the new constructor function
+     */
+
+
+    /**
+     * [Constructor description]
+     * @param {[type]} source
      */
     function Constructor(source) {
 
         var sourceType = typeof(source);
-        var error = "Constructor(): invalid 'source' argument, must be a function or prototype, but was ";;
+        var error = "Constructor(): invalid 'source' argument, must be a function or prototype, but was ";
         var ctr;
 
         if ('function' === sourceType) {
             return source;
-        }	
+        }
 
         if ('undefined' === sourceType) {
             throw new ReferenceError(error + "undefined");
@@ -45,15 +52,15 @@
         if ('object' !== sourceType || source === null) {
             throw new TypeError(error + ('object' != sourceType  ? sourceType + " [" + source + "]" : "null"));
         }
-        
+
         ctr = source.constructor !== Object ? source.constructor : function () {};
 
         ctr.prototype = source;
         ctr.prototype.constructor = ctr;
 
         return ctr;
-    };
-    
+    }
+
     /**
      *  @method Constructor.extend
      *
@@ -62,15 +69,15 @@
      *  @return function - the new constructor function
      */
     Constructor.extend = extend;
-    
+
     function extend(source, target) {
-    
+
         var error = 'Constructor.extend(): ';
-        
+
         if (arguments.length < 2) {
             throw new TypeError(error + 'requires 2 arguments, source and target.');
         }
-        
+
         var sourceType = typeof(source);
         var targetType = typeof(target);
 
@@ -79,19 +86,18 @@
            */
         var newSource = (sourceType !== 'function') ? new Constructor(source) : source;
         var newConstructor = (targetType !== 'function') ? new Constructor(target) : target;
-                
+
         if (newSource == newConstructor) {
             throw new ReferenceError(error + ' source and target arguments should not be identical');
         }
-        
-        var F = F;
+
         var newPrototype;
-        
-        function F() {};
-        
+
+        function F() {}
+
         newConstructor.parent = F;
         F.prototype = newSource.prototype;
-        newPrototype = new F;
+        newPrototype = new F();
 
         /*
            *  In order to support the target argument as an object specifier, we have
@@ -99,7 +105,7 @@
            *  function's prototype.
            */
         if (targetType === 'object') {
-        
+
             var proto = newConstructor.prototype;
 
             for (var k in proto) {
@@ -108,7 +114,10 @@
                 }
             }
         }
-        
+
+        /*
+           * yes this makes 'constructor' an enumerable property
+           */
         newPrototype.constructor = newConstructor;
 
         /*
@@ -118,7 +127,7 @@
         newPrototype.parent = function () {
 
             var parent = this.constructor.parent;
-            var p = new parent;
+            var p = new parent();
 
             p.constructor.apply(p, arguments);
 
@@ -136,6 +145,6 @@
         newConstructor.prototype = newPrototype;
 
         return newConstructor;
-    };
-    
+    }
+
 }((typeof module != 'undefined' && module.exports) ? module.exports : this));
