@@ -1,8 +1,8 @@
 {
   "version": "0.0.1",
-  "name": "Constructor",
-  "description": "Constructor-, prototype- and __super__- inheritance for JavaScript.",
-  "homepage" : "https://github.com/dfkaye/Constructor",
+  "name": "constructor",
+  "description": "constructor-, prototype- and __super__- inheritance for JavaScript.",
+  "homepage" : "https://github.com/dfkaye/constructor",
   "author": {
     "name": "david kaye (@dfkaye)",
     "email" : "dfkaye@yahoo.com"
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dfkaye/Constructor.git"
+    "url": "git://github.com/dfkaye/constructor.git"
   },
   "scripts" : {
     "test" : "node ./test/suite.js",
