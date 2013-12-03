@@ -7354,7 +7354,7 @@ process.chdir = function (dir) {
 
 },{}],19:[function(require,module,exports){
 /**
- *  file:  Constructor.js - provides construction prototype and __super__ inheritance to JavaScript
+ *  file:  constructor.js - provides construction prototype and __super__ inheritance to JavaScript
  *  author:   @dfkaye - david.kaye
  *	date:	2012-10-30
  *
@@ -8549,15 +8549,15 @@ test('$1 should return $2', function (t) {
 
 },{"../../constructor.js":19,"tape":28}],27:[function(require,module,exports){
 // suite.js
-
-require('./base/anti-patterns.js')
-require('./base/base-patterns.js')
-require('./base/using-natives.js')
-    
-require('./extend/anti-patterns.js') 
-require('./extend/extend-patterns.js')
-require('./extend/using-natives.js')
-require('./extend/inherit-statics.js') 
+//
+require('./base/anti-patterns.js');
+require('./base/base-patterns.js');
+require('./base/using-natives.js');
+//
+require('./extend/anti-patterns.js');
+require('./extend/extend-patterns.js');
+require('./extend/using-natives.js');
+require('./extend/inherit-statics.js');
 },{"./base/anti-patterns.js":20,"./base/base-patterns.js":21,"./base/using-natives.js":22,"./extend/anti-patterns.js":23,"./extend/extend-patterns.js":24,"./extend/inherit-statics.js":25,"./extend/using-natives.js":26}],28:[function(require,module,exports){
 var process=require("__browserify_process");var createDefaultStream = require('./lib/default_stream');
 var Test = require('./lib/test');

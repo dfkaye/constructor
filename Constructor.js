@@ -1,5 +1,5 @@
 /**
- *  file:  Constructor.js - provides construction prototype and __super__ inheritance to JavaScript
+ *  file:  constructor.js - provides construction prototype and __super__ inheritance to JavaScript
  *  author:   @dfkaye - david.kaye
  *	date:	2012-10-30
  *

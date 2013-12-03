@@ -1,4 +1,4 @@
-!(function(global) {
+;(function(global) {
 
   var out = document.createElement('div');
   out.innerHTML = '<h1>' + document.title + '</h1>';
