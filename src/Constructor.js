@@ -1,5 +1,5 @@
 /**
- *  file:  Constructor.js - provides construction prototype and parent inheritance to JavaScript
+ *  file:  Constructor.js - provides construction prototype and __super__ inheritance to JavaScript
  *  author:   @dfkaye - david.kaye
  *	date:	2012-10-30
  *
@@ -95,7 +95,7 @@
 
         function F() {}
 
-        newConstructor.parent = F;
+        newConstructor.__super__ = F;
         F.prototype = newSource.prototype;
         newPrototype = new F();
 
@@ -121,13 +121,13 @@
         newPrototype.constructor = newConstructor;
 
         /*
-           *  @method parent - a call-once method for initializing the super/parent constructor of
-           *  this constructor.  parent is replaced with an instance of the super/parent.
+           *  @method __super__ - a call-once method for initializing the super/parent constructor of
+           *  this constructor.  __super__ is replaced with an instance of the super/parent.
            */
-        newPrototype.parent = function () {
+        newPrototype.__super__ = function () {
 
-            var parent = this.constructor.parent;
-            var p = new parent();
+            var __super__ = this.constructor.__super__;
+            var p = new __super__();
 
             p.constructor.apply(p, arguments);
 
@@ -137,7 +137,7 @@
                 }
             }
 
-            this.parent = p;
+            this.__super__ = p;
 
             return this;
         };

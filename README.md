@@ -1,7 +1,7 @@
 Constructor.js
 =====================
 
-Constructor.js ~ constructor-, prototype- and parent- inheritance module. 
+Constructor.js ~ constructor-, prototype- and __super__- inheritance module. 
 
 Motivation
 ==========
@@ -79,7 +79,7 @@ then as an object thereafter.
     ConfigurableDialog = Constructor(Dialog, {
         constructor: function Dialog(contentNode, state) {
         
-            this.parent(contentNode); // first use of parent
+            this.__super__(contentNode); // first use of __super__
             
             this.state = state;
             
@@ -90,7 +90,7 @@ then as an object thereafter.
         hide: function () {
             if (this.state.shown) {
             
-                this.parent.hide(); // __delegate to the parent__
+                this.__super__.hide(); // __delegate to the parent__
                 
                 this.state.shown = false;
             }
@@ -98,7 +98,7 @@ then as an object thereafter.
         show: function () {
             if (!this.state.shown) {
             
-                this.parent.show(); // delegate to the parent
+                this.__super__.show(); // delegate to the __super__
                 
                 this.state.shown = true;
             }
@@ -115,7 +115,7 @@ for instances).  Inheriting statics is not regarded as a good practice anyway in
 Java land.  
 
 In the JavaScript world, using Constructor.js, you can still access such
-properties by referring to the parent.constructor (no call or apply necessary):
+properties by referring to the __super__.constructor (no call or apply necessary):
 
     Example
     
@@ -133,7 +133,7 @@ properties by referring to the parent.constructor (no call or apply necessary):
         },
         accessParentStatic: function () {
             
-            return this.parent.constructor.staticMethod(this);  // <- this way
+            return this.__super__.constructor.staticMethod(this);  // <- this way
         }
     });
     
@@ -154,16 +154,24 @@ On Node.js command line:
 
     cd ./Constructor
   
+    // run suite of all tests
+    
+    npm test
+    
+    // run individual base tests
+    
     node test/base/anti-patterns.js
     node test/base/base-patterns.js
     node test/base/using-natives.js
-    
+
+    // run individual base tests
+
     node test/extend/anti-patterns.js 
     node test/extend/extend-patterns.js
     node test/extend/using-natives.js
     node test/extend/inherit-statics.js 
     
-    
+
 The /base and /extend test cases show the intended usage of Constructor() and 
 Constructor.extend().
 
@@ -171,7 +179,7 @@ The /base and /extend directories contain an ___anti-patterns.js___ test which
 shows a few clever and/or misguided uses that have surprising side-effects. 
 
 Under /extend is the inherit-statics.js tests which shows how to access a static 
-attribute from a parent constructor, but goes into some detail about the example
+attribute from a __super__ constructor, but goes into some detail about the example
 from which this test is derived.   The example is taken from __Programming in 
 CoffeeScript__ by Mark Bates, Addison-Wesley, pp. 147-150, where the author 
 shows that CoffeeScript does not support static inheritance through the 

@@ -52,7 +52,7 @@ test('create employees', function (t) {
  */
 Manager = Constructor.extend(Employee, {
     constructor: function () {
-        this.parent();
+        this.__super__();
     },
     type: 'Manager'
 });
@@ -66,15 +66,15 @@ test('inherit static', function (t) {
       *    return this.__super__.constructor.total.apply(this, arguments);
       *  };
       *
-      * This fails because the parent is NOT the constructor.
+      * This fails because the __super__ is NOT the constructor.
       *
-      * You have to access the parent's prototype.constructor instead ~ which CoffeeScript's super does
+      * You have to access the __super__'s prototype.constructor instead ~ which CoffeeScript's super does
       * not provide you access to (because CS syntax does not expose it).
       * 
       * In the case of Constructor.js, you can call the desired method directly, as below:
       */
     Manager.total = function total() {
-        return this.parent.prototype.constructor.total();
+        return this.__super__.prototype.constructor.total();
     };
 
     /*
@@ -105,11 +105,11 @@ test('inherit static', function (t) {
 test('fix the static inheritance', function (t) {
 
     /*
-     *  We could try to fix this by checking object types in the parent's employees collection...
+     *  We could try to fix this by checking object types in the __super__'s employees collection...
      */
     Manager.total = function total() {
     
-        var employees = this.parent.prototype.constructor.employees;
+        var employees = this.__super__.prototype.constructor.employees;
         var total = 0;
 
         for (var i = 0; i < employees.length; i += 1) {
@@ -123,7 +123,7 @@ test('fix the static inheritance', function (t) {
     };
     
     /*
-      * ... but in fact, by passing the instance handling to the parent class, the instance that is 
+      * ... but in fact, by passing the instance handling to the __super__ class, the instance that is 
       * stored has not finished processing by the subclass constructor ~ unbelievable ~ so the 
       * instanceof check for Manager - and even the prototype 'type' attribute check - ALWAYS fails!
       */

@@ -21,7 +21,6 @@ var Constructor = require('../../src/Constructor.js').Constructor;
 var SubArray = Constructor.extend([], {
   constructor: function () {
     [].slice.call(this);
-    //this.parent();
     // stolen from kangax (http://bit.ly/W66vQW)
     this.push.apply(this, arguments);
   },

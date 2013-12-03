@@ -34,7 +34,7 @@ test('A should just work', function (t) {
 
 fixtures.B = Constructor.extend(fixtures.A, function B(name, value) {
 
-  this.parent(name);
+  this.__super__(name);
 
   this.getValue = function getValue() {
       return value;
@@ -44,7 +44,7 @@ fixtures.B = Constructor.extend(fixtures.A, function B(name, value) {
 // add method to prototype after the extend() call to show the prototype can still be extended
 
 fixtures.B.prototype.test = function test() {
-  return this.getValue() + ":" + this.parent.test();
+  return this.getValue() + ":" + this.__super__.test();
 };
   
   
@@ -58,13 +58,13 @@ test('function B extends function A', function (t) {
   t.end();
 });
 
-test('parent methods are public', function (t) {
+test('__super__ methods are public', function (t) {
 
   var name = 'test name';
   var value = 'test value';
   var b = new fixtures.B(name, value);
   
-  t.strictEquals(b.parent.getName(), b.getName());
+  t.strictEquals(b.__super__.getName(), b.getName());
   t.end();
 });
 
@@ -73,10 +73,10 @@ test('parent methods are public', function (t) {
 
 fixtures.C = {
   	constructor: function C(name, value) {
-  		this.parent(name, value);
+  		this.__super__(name, value);
   	},
   	test: function test() {
-  		return this.getName() + ":" + this.getValue() + " >> " + this.parent.test();
+  		return this.getName() + ":" + this.getValue() + " >> " + this.__super__.test();
   	}
   };
 
@@ -99,14 +99,14 @@ test('prototype C extends function B', function (t) {
 fixtures.D = {
   constructor: function D(name, value, prop) {
   	
-    this.parent(name, value);
+    this.__super__(name, value);
   		
   	this.getProp = function getProp() {
   	  return prop;
     }
   },
   test: function test() {
-  	return this.getProp() + " >> " + this.parent.test();
+  	return this.getProp() + " >> " + this.__super__.test();
   }
 };
 

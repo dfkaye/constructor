@@ -110,7 +110,7 @@ test('extend() should complain about identical constructors with reused subclass
   t.end();
 });
 
-test('should fail to inherit instance closure when parent() not called from constructor', function (t) {
+test('should fail to inherit instance closure when __super__() not called from constructor', function (t) {
 
   var closure_msg = "closure_msg";
   var A = {
@@ -122,7 +122,7 @@ test('should fail to inherit instance closure when parent() not called from cons
   };
   
   var proto = {
-    // constructor: function () { this.parent(); }
+    // constructor: function () { this.__super__(); }
     log: function () {
         return this.test();
     }
@@ -145,7 +145,7 @@ test('should fail to inherit instance closure when parent() not called from cons
 /*test('extending native Array should fail to inherit generic methods', function (t) {
 
   var proto = {
-    constructor: function () { this.parent(); },
+    constructor: function () { this.__super__(); },
     log: function () {
         return this.toString();
     }
