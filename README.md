@@ -4,14 +4,14 @@ Constructor.js
 Constructor.js ~ constructor-, prototype- and __super__- inheritance module. 
 
 Motivation
-==========
+----------
 
 Though there are problems with inheritance (mainly overuse and coupling), it 
 should just work and JavaScript should support it.  Yes, it already "does" but 
 [see this proposal for a better api](https://gist.github.com/dfkaye/4948675 "constructor-api-proposal").
 
 tape & testling
-===============
+---------------
 
 Using [tape](https://github.com/substack/tape) to run tests from the node.js 
 command line, and in order to use [testling](http://ci.testling.com/) from the
@@ -22,7 +22,7 @@ github service hook.
 [Things I've found about checking things in for testling to work](https://gist.github.com/dfkaye/5225546)
 
 use
-===
+---
 
 node:
 
@@ -37,7 +37,7 @@ browser:
 
 
 Constructor API
-===============
+---------------
 
 __Constructor(base)__ ~ specify a base object with 'constructor' defined as a 
     function.  If constructor is not defined, an empty function is provided.
@@ -121,7 +121,7 @@ then as an object thereafter.
     
     
 Statics or Class-level properties
-=================================
+---------------------------------
 
 These are __not__ inherited by the Constructor.extend() operation as statics are 
 defined on a constructor directly, not on its prototype (which provides a map 
@@ -185,6 +185,20 @@ node.js command line:
     node test/extend/using-natives.js
     node test/extend/inherit-statics.js 
     
+browser test suite:
+-------------------
+
+Using browserify to bundle up the tape tests above
+
+    $ browserify ./test/*.js -o ./browser-test/bundle.js
+
+The suite uses a dom-console.js shim for reporting all of tape's console.log 
+statements into the DOM itself.
+    
+__You can view the browser-test/suite.html file on rawgithub at 
+[https://rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html](https://rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html target='_new')__
+
+
 
 The /base and /extend test cases show the intended usage of Constructor() and 
 Constructor.extend().
@@ -200,7 +214,7 @@ shows that CoffeeScript does not support static inheritance through the
 __super__ keyword.  However, the example contains a more fundamental problem NOT 
 specific to CoffeeScript.
 
-*There will be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
+*There may be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
 
 
 <a id="extending-natives"></a>
