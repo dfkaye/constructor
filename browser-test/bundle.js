@@ -7517,7 +7517,7 @@ process.chdir = function (dir) {
  */
 
 var test = require('tape');
-var Constructor = require('../../Constructor.js').Constructor;
+var Constructor = require('../../constructor.js').Constructor;
 
 // test base function
 
@@ -7604,13 +7604,13 @@ test('should wipeout A.prototype.test() method with reuse call', function (t) {
   t.end();
 });
 
-},{"../../Constructor.js":19,"tape":28}],21:[function(require,module,exports){
+},{"../../constructor.js":19,"tape":28}],21:[function(require,module,exports){
 /**
  * test basic Constructor() calls
  */
 
 var test = require('tape');
-var Constructor = require('../../Constructor.js').Constructor;
+var Constructor = require('../../constructor.js').Constructor;
 
 // test base function
 
@@ -7670,7 +7670,7 @@ test('reuse constructor test() method', function (t) {
   t.end();
 });
 
-},{"../../Constructor.js":19,"tape":28}],22:[function(require,module,exports){
+},{"../../constructor.js":19,"tape":28}],22:[function(require,module,exports){
 /**
  * test Constructor with native object instances
  *
@@ -7678,7 +7678,7 @@ test('reuse constructor test() method', function (t) {
  */
 
 var test = require('tape');
-var Constructor = require('../../Constructor.js').Constructor;
+var Constructor = require('../../constructor.js').Constructor;
 
 test('ok when argument is array object', function (t) {
 
@@ -7841,14 +7841,14 @@ test('ok when argument is Boolean constructor', function (t) {
   t.end();
 });
 
-},{"../../Constructor.js":19,"tape":28}],23:[function(require,module,exports){
+},{"../../constructor.js":19,"tape":28}],23:[function(require,module,exports){
 /**
  * test Constructor.extend() calls - should fail
  *
  */
 
 var test = require('tape');
-var Constructor = require('../../Constructor.js').Constructor;
+var Constructor = require('../../constructor.js').Constructor;
 
 // test base function
 
@@ -8009,13 +8009,13 @@ test('should fail to inherit instance closure when __super__() not called from c
   t.end();
 });*/
 
-},{"../../Constructor.js":19,"tape":28}],24:[function(require,module,exports){
+},{"../../constructor.js":19,"tape":28}],24:[function(require,module,exports){
 /**
  * test Constructor.extend() calls
  */
 
 var test = require('tape');
-var Constructor = require('../../Constructor.js').Constructor;
+var Constructor = require('../../constructor.js').Constructor;
 
 // fixture setup - this is the part about TAPE that needs help - the before/after stuff
 
@@ -8156,7 +8156,7 @@ test('verify prototype chain D to A', function (t) {
   t.end();
 });
 
-},{"../../Constructor.js":19,"tape":28}],25:[function(require,module,exports){
+},{"../../constructor.js":19,"tape":28}],25:[function(require,module,exports){
 /**
  * test Constructor.extend() calls with "static" 
  *
@@ -8171,7 +8171,7 @@ test('verify prototype chain D to A', function (t) {
  */
 
 var test = require('tape');
-var Constructor = require('../../Constructor.js').Constructor;
+var Constructor = require('../../constructor.js').Constructor;
 
 // our base  and inheriting constructors
 var Employee, Manager;
@@ -8299,7 +8299,7 @@ test('fix the static inheritance', function (t) {
  *  
  */
 
-},{"../../Constructor.js":19,"tape":28}],26:[function(require,module,exports){
+},{"../../constructor.js":19,"tape":28}],26:[function(require,module,exports){
 /**
  * test Constructor.extend() with natives
  *
@@ -8313,7 +8313,7 @@ test('fix the static inheritance', function (t) {
  */
 
 var test = require('tape');
-var Constructor = require('../../Constructor.js').Constructor;
+var Constructor = require('../../constructor.js').Constructor;
 
 /*
  * FIXTURE - fairly complete example of extending the native built-in Arrays.
@@ -8547,7 +8547,7 @@ test('$1 should return $2', function (t) {
 });
 */
 
-},{"../../Constructor.js":19,"tape":28}],27:[function(require,module,exports){
+},{"../../constructor.js":19,"tape":28}],27:[function(require,module,exports){
 // suite.js
 
 require('./base/anti-patterns.js')

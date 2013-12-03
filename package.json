@@ -26,7 +26,7 @@
   },
   "scripts" : {
     "test" : "node ./test/suite.js",
-    "bundle" : "browserify ./test/*.js -o ./browser-test/bundle.js"
+    "bundle" : "browserify ./test/suite.js -o ./browser-test/bundle.js"
   },
   "testling": {
     "html": "./browser-test/suite.html",

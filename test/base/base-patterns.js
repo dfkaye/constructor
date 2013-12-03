@@ -3,7 +3,7 @@
  */
 
 var test = require('tape');
-var Constructor = require('../../Constructor.js').Constructor;
+var Constructor = require('../../constructor.js').Constructor;
 
 // test base function
 

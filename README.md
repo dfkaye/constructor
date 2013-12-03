@@ -208,9 +208,13 @@ browser test suite:
 Using [browserify](http://browserify.org) to bundle up the 
 [tape](https://github.com/substack/tape) tests above.
 
-    $ browserify ./test/*.js -o ./browser-test/bundle.js
+    $ npm run bundle
+    
+  or
+  
+    $ browserify ./test/suite.js -o ./browser-test/bundle.js
 
-The suite uses a `dom-console.js` shim for reporting all of 
+The html suite uses a `dom-console.js` shim for reporting all of 
 [tape](https://github.com/substack/tape)'s `console.log` statements into the DOM 
 itself.
     
