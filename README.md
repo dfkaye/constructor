@@ -162,9 +162,24 @@ Tests
 The only failing tests are in extend/using-natives.js, and only in IE 6, 7, & 8.
 See the [Extending Natives?](#extending-natives) section further down.
 
+The /base and /extend test cases show the intended usage of Constructor() and 
+Constructor.extend().
 
-node.js command line:
----------------------
+The /base and /extend directories contain an ___anti-patterns.js___ test which 
+shows a few clever and/or misguided uses that have surprising side-effects. 
+
+Under /extend is the inherit-statics.js tests which shows how to access a static 
+attribute from a __super__ constructor, but goes into some detail about the example
+from which this test is derived.   The example is taken from __Programming in 
+CoffeeScript__ by Mark Bates, Addison-Wesley, pp. 147-150, where the author 
+shows that CoffeeScript does not support static inheritance through the 
+__super__ keyword.  However, the example contains a more fundamental problem NOT 
+specific to CoffeeScript.
+
+*There may be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
+
+test from node.js command line:
+------------------------------
 
     cd ./Constructor
   
@@ -184,37 +199,25 @@ node.js command line:
     node test/extend/extend-patterns.js
     node test/extend/using-natives.js
     node test/extend/inherit-statics.js 
-    
+
+
 browser test suite:
 -------------------
 
-Using browserify to bundle up the tape tests above
+Using [browserify](http://browserify.org) to bundle up the 
+[tape](https://github.com/substack/tape) tests above.
 
     $ browserify ./test/*.js -o ./browser-test/bundle.js
 
-The suite uses a dom-console.js shim for reporting all of tape's console.log 
-statements into the DOM itself.
+The suite uses a `dom-console.js` shim for reporting all of 
+[tape](https://github.com/substack/tape)'s `console.log` statements into the DOM 
+itself.
     
 __You can view the browser-test/suite.html file on rawgithub at 
-[https://rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html](https://rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html target='_new')__
-
-
-
-The /base and /extend test cases show the intended usage of Constructor() and 
-Constructor.extend().
-
-The /base and /extend directories contain an ___anti-patterns.js___ test which 
-shows a few clever and/or misguided uses that have surprising side-effects. 
-
-Under /extend is the inherit-statics.js tests which shows how to access a static 
-attribute from a __super__ constructor, but goes into some detail about the example
-from which this test is derived.   The example is taken from __Programming in 
-CoffeeScript__ by Mark Bates, Addison-Wesley, pp. 147-150, where the author 
-shows that CoffeeScript does not support static inheritance through the 
-__super__ keyword.  However, the example contains a more fundamental problem NOT 
-specific to CoffeeScript.
-
-*There may be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
+<a href='//rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html' 
+    target='_new' title='opens in new tab or window'>
+  https://rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html
+</a>__
 
 
 <a id="extending-natives"></a>
