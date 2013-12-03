@@ -21,6 +21,20 @@ github service hook.
 
 [Things I've found about checking things in for testling to work](https://gist.github.com/dfkaye/5225546)
 
+use
+===
+
+node:
+
+    var Constructor = require('./Constructor').Constructor;
+
+browser:
+
+    <script src='path/to/Constructor.js'></script>
+    <script>
+      var example = window.Constructor(etc);
+    </script>
+
 
 Constructor API
 ===============
@@ -149,8 +163,8 @@ The only failing tests are in extend/using-natives.js, and only in IE 6, 7, & 8.
 See the [Extending Natives?](#extending-natives) section further down.
 
 
-On Node.js command line:
-=========================
+node.js command line:
+---------------------
 
     cd ./Constructor
   
@@ -208,13 +222,6 @@ tl;dr -
 * IE 6-8 iterations fail on 'this.length' on subarray instances.  
 * IE 6-7 don't allow subclasses to inherit any methods in this implementation of 
   constructor inheritance.
-
-
-git & github
-============
-
-Get comfortable with command line (git bash ftw) and github (just about painless). 
-
 
 npm
 ============

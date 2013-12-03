@@ -11,7 +11,7 @@
  */
 
 var test = require('tape');
-var Constructor = require('../../src/Constructor.js').Constructor;
+var Constructor = require('../../Constructor.js').Constructor;
 
 /*
  * FIXTURE - fairly complete example of extending the native built-in Arrays.

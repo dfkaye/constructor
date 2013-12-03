@@ -12,7 +12,7 @@
  */
 
 var test = require('tape');
-var Constructor = require('../../src/Constructor.js').Constructor;
+var Constructor = require('../../Constructor.js').Constructor;
 
 // our base  and inheriting constructors
 var Employee, Manager;

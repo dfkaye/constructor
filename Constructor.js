@@ -3,8 +3,7 @@
  *  author:   @dfkaye - david.kaye
  *	date:	2012-10-30
  *
- *	To-DO
- *    - commonjs module support for global scope and exports
+ *	To-DO (if ever)
  *    - better 'actual' support for extending natives (like Array) - could be bikeshedding, though...
  *
  *   11/20/12
@@ -17,10 +16,15 @@
  *
  *   3/3/13
  *      github repo opened ~ test factorings in progress
+ *
+ *   12/3/13
+ *      change parent to __super__
+ *      change exports support
  */
 
 ;(function (exports) {
 
+    exports = (typeof module != 'undefined' && module.exports) || window;
     exports.Constructor = Constructor;
 
     /**
@@ -147,4 +151,4 @@
         return newConstructor;
     }
 
-}((typeof module != 'undefined' && module.exports) ? module.exports : this));
+}());
