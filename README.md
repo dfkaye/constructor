@@ -1,7 +1,7 @@
-Constructor.js
+constructor.js
 =====================
 
-Constructor.js ~ constructor-, prototype- and __super__- inheritance module. 
+constructor.js ~ constructor-, prototype- and __super__- inheritance module. 
 
 Motivation
 ----------
@@ -17,20 +17,20 @@ Using [tape](https://github.com/substack/tape) to run tests from the node.js
 command line, and in order to use [testling](http://ci.testling.com/) from the
 github service hook.
 
-[![browser support](https://ci.testling.com/dfkaye/Constructor.png)](https://ci.testling.com/dfkaye/Constructor)
+[![browser support](https://ci.testling.com/dfkaye/constructor.png)](https://ci.testling.com/dfkaye/constructor)
 
 [Things I've found about checking things in for testling to work](https://gist.github.com/dfkaye/5225546)
 
 use
 ---
 
-node:
+  node:
 
-    var Constructor = require('./Constructor').Constructor;
+    var Constructor = require('./constructor').Constructor;
 
-browser:
+  browser:
 
-    <script src='path/to/Constructor.js'></script>
+    <script src='path/to/constructor.js'></script>
     <script>
       var example = window.Constructor(etc);
     </script>
@@ -46,7 +46,7 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
     immediately withou modification.  Use of the 'new' keyword when calling 
     Constructor() is optional.
     
-    Example:
+    // Example:
     
     Dialog = new Constructor({
         constructor: function Dialog(contentNode) {
@@ -66,12 +66,13 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
         }
     });
     
-    Use:
+    // Use:
     
     var a = new Dialog({ id: 'superFunHappyMockContentNode'});
     
     
-__Prior Art__ 
+Prior Art
+---------
 
 This implementation is based on the type() method suggested byNicholas Zakas in 
 his post [Custom types (classes) using object literals in JavaScript]
@@ -128,7 +129,7 @@ defined on a constructor directly, not on its prototype (which provides a map
 for instances).  Inheriting statics is not regarded as a good practice anyway in
 Java land.  
 
-In the JavaScript world, using Constructor.js, you can still access such
+In the JavaScript world, using constructor.js, you can still access such
 properties by referring to the __super__.constructor (no call or apply necessary):
 
     Example
@@ -182,7 +183,7 @@ specific to CoffeeScript.
 test from node.js command line:
 ------------------------------
 
-    cd ./Constructor
+    cd ./constructor
   
     // run suite of all tests
     
@@ -219,7 +220,7 @@ The html suite uses a `dom-console.js` shim for reporting all of
 itself.
     
 __You can view the browser-test/suite.html file on 
-<a href='//rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html' 
+<a href='//rawgithub.com/dfkaye/constructor/master/browser-test/suite.html' 
     target='_new' title='opens in new tab or window'>rawgithub</a>__
 
 
@@ -228,7 +229,7 @@ Extending Natives?
 ==================
 
 YES, you can inherit from Native functions, but there are some caveats - see the 
-[test/extend/using-natives.js](https://github.com/dfkaye/Constructor/blob/master/test/extend/using-natives.js) 
+[test/extend/using-natives.js](https://github.com/dfkaye/constructor/blob/master/test/extend/using-natives.js) 
 file for a complete implementation of a SubArray that inherits from the native 
 Array constructor.
 
@@ -244,7 +245,9 @@ __tl;dr__
 * IE 6-7 don't allow subclasses to inherit any methods in this implementation of 
   constructor inheritance.
 
+  
 npm
 ---
 
-___TODO___
+    npm install constructor
+    
