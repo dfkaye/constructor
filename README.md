@@ -213,11 +213,9 @@ The suite uses a `dom-console.js` shim for reporting all of
 [tape](https://github.com/substack/tape)'s `console.log` statements into the DOM 
 itself.
     
-__You can view the browser-test/suite.html file on rawgithub at 
+__You can view the browser-test/suite.html file on 
 <a href='//rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html' 
-    target='_new' title='opens in new tab or window'>
-  https://rawgithub.com/dfkaye/Constructor/master/browser-test/suite.html
-</a>__
+    target='_new' title='opens in new tab or window'>rawgithub</a>__
 
 
 <a id="extending-natives"></a>
