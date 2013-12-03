@@ -178,6 +178,7 @@ specific to CoffeeScript.
 
 *There may be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
 
+
 test from node.js command line:
 ------------------------------
 
@@ -193,7 +194,7 @@ test from node.js command line:
     node test/base/base-patterns.js
     node test/base/using-natives.js
 
-    // run individual base tests
+    // run individual extend tests
 
     node test/extend/anti-patterns.js 
     node test/extend/extend-patterns.js
@@ -232,13 +233,14 @@ differs between IE 6-8 and all the others (not surprisingly) - but all have a
 common restriction in that special methods based on the [[Class]] will fail on 
 any objects not identified as constructed by that [[Class]].
 
-tl;dr - 
-* subclassing Array requires overwriting concat() and toString() methods. 
-* IE 6-8 iterations fail on 'this.length' on subarray instances.  
+__tl;dr__
+ 
+* subclassing Array requires overwriting `concat()` and `toString()` methods. 
+* IE 6-8 iterations fail on `this.length` on subarray instances.  
 * IE 6-7 don't allow subclasses to inherit any methods in this implementation of 
   constructor inheritance.
 
 npm
-============
+---
 
 ___TODO___

@@ -1,7 +1,7 @@
 {
   "version": "0.0.1",
   "name": "Constructor",
-  "description": "Constructor-, prototype- and parent- inheritance for JavaScript.",
+  "description": "Constructor-, prototype- and __super__- inheritance for JavaScript.",
   "homepage" : "https://github.com/dfkaye/Constructor",
   "author": {
     "name": "david kaye (@dfkaye)",
@@ -18,25 +18,29 @@
     }    
   ],
   "devDependencies": {
-    "tape": "~0.2.2"
+    "tape": "~2.3.0"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/dfkaye/Constructor.git"
   },
   "scripts" : {
-    "test" : "node ./test/suite.js"
+    "test" : "node ./test/suite.js",
+    "bundle" : "browserify ./test/*.js -o ./browser-test/bundle.js"
   },
   "testling": {
-    "files": "test/suite.js",
+    "files": [
+      "./Constructor.js",
+      "./test/suite.js"
+    ],
     "browsers" : [
-        "ie/6..latest",
-        "chrome/latest",
-        "firefox/latest",
-        "safari/latest",
-        "opera/latest",
-        "iphone/6", 
-        "ipad/6"
+      "ie/6..latest",
+      "chrome/latest",
+      "firefox/latest",
+      "safari/latest",
+      "opera/latest",
+      "iphone/6", 
+      "ipad/6"
     ]
   }
 }
