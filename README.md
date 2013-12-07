@@ -46,24 +46,24 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
     immediately withou modification.  Use of the 'new' keyword when calling 
     Constructor() is optional.
     
-    // Example:
+Example:
     
     Dialog = new Constructor({
-        constructor: function (contentNode) {
-            this.contentNode = contentNode;
-        },
-        hide: function () {
-            this.contentNode.hide();
-        },
-        reposition: function (left, top) {
-            // do some repositioning
-        },
-        resize: function (width, height) {
-            // do some resizing
-        },
-        show: function () {
-            this.contentNode.show();
-        }
+      constructor: function (contentNode) {
+        this.contentNode = contentNode;
+      },
+      hide: function () {
+        this.contentNode.hide();
+      },
+      reposition: function (left, top) {
+        // do some repositioning
+      },
+      resize: function (width, height) {
+        // do some resizing
+      },
+      show: function () {
+        this.contentNode.show();
+      }
     });
     
     // Use:
@@ -105,17 +105,17 @@ An example - hastily presented:
       hide: function () {
         if (this.state.shown) {
         
-            this.__super__.hide(); // elegate to the __super__
-            
-            this.state.shown = false;
+          this.__super__.hide(); // elegate to the __super__
+          
+          this.state.shown = false;
         }
       },
       show: function () {
         if (!this.state.shown) {
-        
-            this.__super__.show(); // delegate to the __super__
-            
-            this.state.shown = true;
+      
+          this.__super__.show(); // delegate to the __super__
+          
+          this.state.shown = true;
         }
       }
     });
@@ -218,7 +218,7 @@ Using [browserify](http://browserify.org) to bundle up the
 
 The html suite uses a `dom-console.js` shim for reporting all of 
 [tape](https://github.com/substack/tape)'s `console.log` statements into the DOM 
-itself.
+itself.  This is located at https://github.com/dfkaye/constructor/blob/master/browser-test/dom-console.js
     
 __You can view the browser-test/suite.html file on 
 <a href='//rawgithub.com/dfkaye/constructor/master/browser-test/suite.html' 
