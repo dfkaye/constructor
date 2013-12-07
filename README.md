@@ -49,7 +49,7 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
     // Example:
     
     Dialog = new Constructor({
-        constructor: function Dialog(contentNode) {
+        constructor: function (contentNode) {
             this.contentNode = contentNode;
         },
         hide: function () {
@@ -74,82 +74,83 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
 Prior Art
 ---------
 
-This implementation is based on the type() method suggested byNicholas Zakas in 
+This implementation is based on the type() method suggested by Nicholas Zakas in 
 his post [Custom types (classes) using object literals in JavaScript]
 (http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ 
 "Custom types (classes) using object literals in JavaScript")
     
-Zakas' method is in turn based on a desugaring of Jeremy Askenas' suggested
+Zakas' method is in turn based on a de-sugaring of Jeremy Askenas' suggested
 api for the class, extend, super keyword proposals for ES6.
     
 __Constructor.extend(base, child)__
 
 Specify a base object or function to inherit from, and a child object or 
 function that will inherit from the base.  The base is referenced from the child 
-by __this.parent__.  In the constructor, use it as a function call initially, 
+by `this.__super__`.  In the constructor, use it as a function call initially, 
 then as an object thereafter.
     
-    Example - hastily presented:
+An example - hastily presented:
 
     ConfigurableDialog = Constructor(Dialog, {
-        constructor: function Dialog(contentNode, state) {
+      constructor: function (contentNode, state) {
+    
+        this.__super__(contentNode); // first use of __super__
         
-            this.__super__(contentNode); // first use of __super__
-            
-            this.state = state;
-            
-            if (this.state.displayOnCreate === true && !this.state.shown) {
-                this.show();
-            }
-        },
-        hide: function () {
-            if (this.state.shown) {
-            
-                this.__super__.hide(); // __delegate to the parent__
-                
-                this.state.shown = false;
-            }
-        },
-        show: function () {
-            if (!this.state.shown) {
-            
-                this.__super__.show(); // delegate to the __super__
-                
-                this.state.shown = true;
-            }
+        this.state = state;
+        
+        if (this.state.displayOnCreate === true && !this.state.shown) {
+            this.show();
         }
+      },
+      hide: function () {
+        if (this.state.shown) {
+        
+            this.__super__.hide(); // elegate to the __super__
+            
+            this.state.shown = false;
+        }
+      },
+      show: function () {
+        if (!this.state.shown) {
+        
+            this.__super__.show(); // delegate to the __super__
+            
+            this.state.shown = true;
+        }
+      }
     });
     
     
 Statics or Class-level properties
 ---------------------------------
 
-These are __not__ inherited by the Constructor.extend() operation as statics are 
-defined on a constructor directly, not on its prototype (which provides a map 
-for instances).  Inheriting statics is not regarded as a good practice anyway in
-Java land.  
+These are __not__ inherited by the `Constructor.extend()` operation as statics 
+in are defined on a constructor directly, not on its prototype (which provides a 
+map for instances).  Inheriting statics is not regarded as a good practice 
+anyway in Java land.  
 
-In the JavaScript world, using constructor.js, you can still access such
-properties by referring to the __super__.constructor (no call or apply necessary):
+In the JavaScript world, using `constructor.js`, you can still access such
+properties by referring to the `__super__.constructor` (no `call()` or `apply()` 
+necessary):
 
-    Example
+Example
     
     Request = Constructor({
     
     });
     
     Request.staticMethod = function (obj) {
-        // do something with obj
+      // do something with obj
     };
     
-    Post = Constructor.extend(Post, {
-        constructor: function () {
-            //...
-        },
-        accessParentStatic: function () {
-            
-            return this.__super__.constructor.staticMethod(this);  // <- this way
-        }
+    Post = Constructor.extend(Request, {
+      constructor: function () {
+        //...
+      },
+      accessParentStatic: function () {
+          
+        return this.__super__.constructor.staticMethod(this);  // <- this way
+      }
     });
     
 
@@ -157,8 +158,8 @@ Tests
 =====
 
 * base case tests __done for now__
-* extend case tests ___done for now___
-* anti-pattern tests, inherit-statics, using-natives ___done for now___
+* extend case tests __done for now__
+* anti-pattern tests, inherit-statics, using-natives __done for now__
 
 The only failing tests are in extend/using-natives.js, and only in IE 6, 7, & 8.
 See the [Extending Natives?](#extending-natives) section further down.
