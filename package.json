@@ -18,7 +18,7 @@
     }    
   ],
   "devDependencies": {
-    "tape": "~2.3.0"
+    "tape": "2.x.x"
   },
   "repository": {
     "type": "git",

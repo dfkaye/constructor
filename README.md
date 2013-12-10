@@ -1,6 +1,8 @@
 constructor.js
 =====================
 
+[![Build Status](https://travis-ci.org/dfkaye/constructor.png)](https://travis-ci.org/dfkaye/constructor)
+
 constructor.js ~ constructor-, prototype- and __super__- inheritance module. 
 
 Motivation
