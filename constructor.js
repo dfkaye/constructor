@@ -1,10 +1,12 @@
 /**
- *  file:  constructor.js - provides construction prototype and __super__ inheritance to JavaScript
+ *  file:  constructor.js - provides construction prototype and __super__ 
+ *         inheritance to JavaScript
  *  author:   @dfkaye - david.kaye
  *	date:	2012-10-30
  *
  *	To-DO (if ever)
- *    - better 'actual' support for extending natives (like Array) - could be bikeshedding, though...
+ *    - better 'actual' support for extending natives (like Array) - could be 
+ *      bikeshedding, though...
  *
  *   11/20/12
  *      copied over to local
@@ -30,17 +32,11 @@
   exports = (typeof module != 'undefined' && module.exports) || window;
   exports.Constructor = Constructor;
 
-  /**
+  /*
    *  @constructor function Constructor
    *
    *  @param source - source must be either a function or an object specifier
    *  @return function - the new constructor function
-   */
-
-
-  /**
-   * [Constructor description]
-   * @param {[type]} source
    */
   function Constructor(source) {
 
@@ -130,7 +126,6 @@
      * yes this makes 'constructor' an enumerable property
      */
     newPrototype.constructor = newConstructor;
-    
 
     /*
      *  @method __super__ - a call-once method for initializing the super/parent constructor of

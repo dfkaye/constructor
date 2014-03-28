@@ -34,7 +34,7 @@ Employee.total = function total() {
 /*
  * First test that the Employee creation works.
  */
-test('create employees', function (t) {
+test('constructor with static method call', function (t) {
 
   var total = 4;
   
@@ -56,7 +56,7 @@ var Manager = Constructor.extend(Employee, {
   type: 'Manager'
 });
 
-test('inherit static', function (t) {    
+test('failing naive static inheritance', function (t) {    
 
   /*
    * The book's example shows the following CoffeeScript
@@ -120,14 +120,13 @@ test('inherit static', function (t) {
   
   t.strictEquals(Employee.total(), managerCount + employeeCount, 'should have 8 employees');
 
-  // passes!  Manager.total() already gets the initial total from employee because
-  // employee.total does not check for
+  // passes!  Manager.total() already gets the initial total from employee
   t.strictEquals(Manager.total(), Employee.total());
   
   t.end();
 });
 
-test('brute force instanceof static inheritance', function (t) {
+test('failing instanceof static inheritance', function (t) {
 
   /*
    *  We could try to fix this by checking object types in the __super__'s 
@@ -147,26 +146,11 @@ test('brute force instanceof static inheritance', function (t) {
     
     return total;
   };
-  
-  /*
-   * ...but in fact, by passing the instance handling to the __super__ class, 
-   * the instance that is stored has not finished processing by the subclass 
-   * constructor ~ unbelievable ~ so the instanceof check for Manager - and 
-   * even the prototype 'type' attribute check - ALWAYS fails!
-   */
+
   t.equal(Manager.total(), 0, 'no managers');
   t.end();
 });
 
-/*
- *  So what is the correct solution?
- *
- *  1) store instances in something like an instance store, such as 
- *     EmployeeList, ManagerList, Payroll.
- *
- *  2) don't do actual work like that in the constructor.
- *  
- */
 test('fix this reference', function (t) {
 
   /*
@@ -174,12 +158,9 @@ test('fix this reference', function (t) {
    * NO data, and passes its current scope (whatever this refers to) along to 
    * the static hire() method:
    *
-      function Employee() {
-        Employee.hire(this);
-      };
-
-   * That means the object being sent to Employee.hire() is a bare reference, 
-   * with no inherited properties.
+   *   function Employee() {
+   *     Employee.hire(this);
+   *   };
    *
    * When we specified a call to super from the Manager instance, we were no 
    * longer referring to the instanceof a Manager, but to an Employee. Adding 
@@ -199,7 +180,7 @@ test('fix this reference', function (t) {
    *    }
    * 
    * Instead of doing that work in the constructor, we can make a prototype 
-   *  method hire() in Employer that makes this call:
+   * method hire() in Employer that makes this call:
    *
    *    Employee.prototype.hire = function() {
    *      Employee.hire(this);

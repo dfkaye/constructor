@@ -94,6 +94,7 @@ then as an object thereafter.
 An example - hastily presented:
 
     ConfigurableDialog = Constructor.extend(Dialog, {
+    
       constructor: function (contentNode, state) {
     
         this.__super__(contentNode); // first use of __super__
@@ -104,14 +105,16 @@ An example - hastily presented:
             this.show();
         }
       },
+      
       hide: function () {
         if (this.state.shown) {
         
-          this.__super__.hide(); // elegate to the __super__
+          this.__super__.hide(); // delegate to the __super__
           
           this.state.shown = false;
         }
       },
+      
       show: function () {
         if (!this.state.shown) {
       
@@ -163,6 +166,8 @@ applying the method to the current scope:
       
     });
   
+__UPDATE 27 MAR 2014__:  Blog Post on the 
+[problem with static inheritance](http://dfkaye.github.io/2014/03/27/problem-with-static-inheritance-in-coffeescript/)
 
 Tests
 =====
@@ -188,11 +193,10 @@ example from which this test is derived.   The example is taken from
 where the author shows that CoffeeScript does not support static inheritance 
 through the `__super__` keyword.  However, the example contains a more 
 fundamental problem with respect to static property access that is NOT specific 
-to CoffeeScript.
+to CoffeeScript.  
 
-*There may be a rant about that example on my 
-[gists](https://gist.github.com/dfkaye) eventually.*
-
+__UPDATE 27 MAR 2014__:  Blog Post on this problem
+[fixing static inheritance](http://dfkaye.github.io/2014/03/27/problem-with-static-inheritance-in-coffeescript/)
 
 test from node.js command line:
 ------------------------------
