@@ -5,6 +5,8 @@
  *	date:	2012-10-30
  * 
  * This short suite explores the anti-pattern of attempting to inherit statics.
+ * The whole story is here:
+ * http://dfkaye.github.io/2014/03/27/problem-with-static-inheritance-in-coffeescript/
  *
  * The example is taken from "Programming in CoffeeScript" by Mark Bates, 
  * Addison-Wesley, pp. 147-150, where the author shows that CoffeeScript does 
