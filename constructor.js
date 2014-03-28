@@ -20,6 +20,9 @@
  *   12/3/13
  *      change parent to __super__
  *      change exports support
+ *
+ *   3/27/14
+ *      expose static __super__ and __super__.constructor properties
  */
 
 ;(function (exports) {
@@ -98,11 +101,15 @@
     var newPrototype;
 
     function F() {}
-
+    
+    // expose static __super_ and __super__.constructor properties
+    F.constructor = newSource; 
     newConstructor.__super__ = F;
+    
+    // create our new prototype
     F.prototype = newSource.prototype;
     newPrototype = new F();
-
+  
     /*
      *  In order to support the target argument as an object specifier, we have
      *  to take the extra step of copying out its properties onto the new target
@@ -123,6 +130,7 @@
      * yes this makes 'constructor' an enumerable property
      */
     newPrototype.constructor = newConstructor;
+    
 
     /*
      *  @method __super__ - a call-once method for initializing the super/parent constructor of
@@ -131,19 +139,18 @@
     newPrototype.__super__ = function () {
 
       var __super__ = this.constructor.__super__;
-      var p = new __super__();
+      var p = new __super__(this, arguments);
 
       p.constructor.apply(p, arguments);
 
       for (var k in p) {
         if (p.hasOwnProperty(k)) {
+        //if (!(k in this)) {
           this[k] = p[k];
         }
       }
 
       this.__super__ = p;
-
-      return this
     };
 
     newConstructor.prototype = newPrototype;

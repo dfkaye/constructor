@@ -9,7 +9,7 @@ Motivation
 ----------
 
 Though there are problems with inheritance (mainly overuse and coupling), it 
-should just work and JavaScript should support it.  Yes, it already "does" but 
+should just work and JavaScript should support it.  Yes, it already "does", but 
 [see this proposal for a better api](https://gist.github.com/dfkaye/4948675 "constructor-api-proposal").
 
 tape & testling
@@ -37,7 +37,6 @@ use
       var example = window.Constructor(etc);
     </script>
 
-
 Constructor API
 ---------------
 
@@ -45,8 +44,8 @@ __Constructor(base)__ ~ specify a base object with 'constructor' defined as a
     function.  If constructor is not defined, an empty function is provided.
     The constructor function's prototype is then set to the base object, and the
     function is returned.  If you pass in a function, that function is returned
-    immediately withou modification.  Use of the 'new' keyword when calling 
-    Constructor() is optional.
+    immediately without modification.  Use of the 'new' keyword when calling 
+    `Constructor()` is optional.
     
 Example:
     
@@ -83,7 +82,8 @@ his post [Custom types (classes) using object literals in JavaScript]
     
 Zakas' method is in turn based on a de-sugaring of Jeremy Askenas' suggested
 api for the class, extend, super keyword proposals for ES6.
-    
+
+
 __Constructor.extend(base, child)__
 
 Specify a base object or function to inherit from, and a child object or 
@@ -93,7 +93,7 @@ then as an object thereafter.
     
 An example - hastily presented:
 
-    ConfigurableDialog = Constructor(Dialog, {
+    ConfigurableDialog = Constructor.extend(Dialog, {
       constructor: function (contentNode, state) {
     
         this.__super__(contentNode); // first use of __super__
@@ -126,14 +126,13 @@ An example - hastily presented:
 Statics or Class-level properties
 ---------------------------------
 
-These are __not__ inherited by the `Constructor.extend()` operation as statics 
-in are defined on a constructor directly, not on its prototype (which provides a 
-map for instances).  Inheriting statics is not regarded as a good practice 
-anyway in Java land.  
+Statics are __not__ inherited by the `Constructor.extend()` operation as those 
+are defined on a constructor directly, not on its prototype (which provides a 
+map for instances).  Inheriting statics is not regarded as a good practice, 
+anyway.  
 
-In the JavaScript world, using `constructor.js`, you can still access such
-properties by referring to the `__super__.constructor` (no `call()` or `apply()` 
-necessary):
+However, using `constructor.js`, you can access a staticName on a base 
+constructor by referring to `this.__super__.constructor.staticName`:
 
 Example
     
@@ -149,12 +148,21 @@ Example
       constructor: function () {
         //...
       },
-      accessParentStatic: function () {
-          
-        return this.__super__.constructor.staticMethod(this);  // <- this way
+      
+accessing the method:
+
+      accessStatic: function () {
+        return this.__super__.constructor.staticMethod(this);
+      },
+      
+applying the method to the current scope:
+
+      applyStatic: function () {
+        return this.__super__.constructor.staticMethod.apply(this, this);
       }
+      
     });
-    
+  
 
 Tests
 =====
@@ -172,15 +180,18 @@ Constructor.extend().
 The /base and /extend directories contain an ___anti-patterns.js___ test which 
 shows a few clever and/or misguided uses that have surprising side-effects. 
 
-Under /extend is the inherit-statics.js tests which shows how to access a static 
-attribute from a __super__ constructor, but goes into some detail about the example
-from which this test is derived.   The example is taken from __Programming in 
-CoffeeScript__ by Mark Bates, Addison-Wesley, pp. 147-150, where the author 
-shows that CoffeeScript does not support static inheritance through the 
-__super__ keyword.  However, the example contains a more fundamental problem NOT 
-specific to CoffeeScript.
+Under /extend is the inherit-statics.js tests which show how to access a static 
+attribute from a __super__ constructor, but goes into some detail about the 
+example from which this test is derived.   The example is taken from 
+[Programming in CoffeeScript](http://www.amazon.com/gp/product/032182010X/) by 
+[Mark Bates](http://metabates.com/), Addison-Wesley, pp. 147-150, 
+where the author shows that CoffeeScript does not support static inheritance 
+through the `__super__` keyword.  However, the example contains a more 
+fundamental problem with respect to static property access that is NOT specific 
+to CoffeeScript.
 
-*There may be a rant about that example on my [gists](https://gist.github.com/dfkaye) eventually.*
+*There may be a rant about that example on my 
+[gists](https://gist.github.com/dfkaye) eventually.*
 
 
 test from node.js command line:
@@ -220,7 +231,8 @@ Using [browserify](http://browserify.org) to bundle up the
 
 The html suite uses a `dom-console.js` shim for reporting all of 
 [tape](https://github.com/substack/tape)'s `console.log` statements into the DOM 
-itself.  This is located at https://github.com/dfkaye/constructor/blob/master/browser-test/dom-console.js
+itself.  This is located at 
+https://github.com/dfkaye/constructor/blob/master/browser-test/dom-console.js
     
 __You can view the browser-test/suite.html file on 
 <a href='//rawgithub.com/dfkaye/constructor/master/browser-test/suite.html' 
@@ -254,3 +266,7 @@ npm
 
     npm install constructor
     
+license
+-------
+
+    JSON
