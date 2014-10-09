@@ -239,8 +239,8 @@ itself.  This is located at
 https://github.com/dfkaye/constructor/blob/master/browser-test/dom-console.js
     
 __You can view the browser-test/suite.html file on 
-<a href='//rawgithub.com/dfkaye/constructor/master/browser-test/suite.html' 
-    target='_new' title='opens in new tab or window'>rawgithub</a>__
+<a href='//rawgit.com/dfkaye/constructor/master/browser-test/suite.html' 
+    target='_new' title='opens in new tab or window'>rawgit</a>__
 
 
 <a id="extending-natives"></a>
