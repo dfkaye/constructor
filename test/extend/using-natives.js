@@ -11,14 +11,14 @@
  */
 
 var test = require('tape');
-var Constructor = require('../../constructor.js').Constructor;
+var Constructor = require('../../');
 
 /*
  * FIXTURE - fairly complete example of extending the native built-in Arrays.
  *
  * NOTE:  the first argument here could be the Array constructor.
  */
-var SubArray = Constructor.extend([], {
+var SubArray = Constructor({
   constructor: function () {
     [].slice.call(this);
     // stolen from kangax (http://bit.ly/W66vQW)
@@ -70,7 +70,7 @@ var SubArray = Constructor.extend([], {
     
     return instance;
   } // watch out for trailing commas in IE 6-8!!!
-});
+}, Array);
 
   
 test('SubArray - verify the toString() fix', function (t) {

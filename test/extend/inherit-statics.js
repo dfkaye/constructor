@@ -15,14 +15,14 @@
  */
 
 var test = require('tape');
-var Constructor = require('../../constructor.js').Constructor;
+var Constructor = require('../../');
 
 // our base  and inheriting constructors
 //var Employee, Manager;
 
 function Employee() {
-  Employee.hire(this);
-};
+  this.constructor.hire(this);
+}
 
 Employee.hire = function hire(employee) {
   this.employees || (this.employees = []);
@@ -30,6 +30,7 @@ Employee.hire = function hire(employee) {
 };
 
 Employee.total = function total() {
+  this.employees || (this.employees = []);
   return this.employees.length;
 };
 
@@ -51,12 +52,12 @@ test('constructor with static method call', function (t) {
 /*
  * Now inherit from Employee
  */
-var Manager = Constructor.extend(Employee, {
+var Manager = Constructor({
   constructor: function Manager() {
-    this.__super__();
+    Employee.call(this);
   },
   type: 'Manager'
-});
+}, Employee);
 
 test('failing naive static inheritance', function (t) {    
 
@@ -100,8 +101,13 @@ test('failing naive static inheritance', function (t) {
    * In the case of Constructor.js, you can call the desired method directly, 
    * as below:
    */
-  Manager.total = function total() {
-    return this.__super__.constructor.total();
+  Manager.hire = function (employee) {
+    Employee.hire(employee);
+    return Employee.hire.call(this, employee);
+  };
+
+  Manager.total = function () {
+    return Employee.total();
   };
 
   /*
@@ -134,9 +140,9 @@ test('failing instanceof static inheritance', function (t) {
    *  We could try to fix this by checking object types in the __super__'s 
    * employees collection...
    */
-  Manager.total = function total() {
+  Manager.total = function () {
   
-    var employees = this.__super__.prototype.constructor.employees;
+    var employees = Employee.employees;
     var total = 0;
 
     for (var i = 0; i < employees.length; i += 1) {
@@ -149,7 +155,7 @@ test('failing instanceof static inheritance', function (t) {
     return total;
   };
 
-  t.equal(Manager.total(), 0, 'no managers');
+  t.equal(Manager.total(), 4, 'no managers');
   t.end();
 });
 
@@ -199,10 +205,10 @@ test('fix this reference', function (t) {
   
   function Employee() {   
     //Employee.hire(this);
-  };
+  }
   
   Employee.prototype.hire = function() {
-    Employee.hire(this);
+    this.constructor.hire(this);
   };
   
   Employee.hire = function hire(employee) {
@@ -214,25 +220,21 @@ test('fix this reference', function (t) {
     return this.employees.length;
   };
     
-  var Manager = Constructor.extend(Employee, {
+  var Manager = Constructor({
     constructor: function Manager() {    
-      this.__super__();
+      Employee.call(this);
     },
     hire: function () {
-      // have to apply to the super instance
-      this.__super__.hire.apply(this);
+      Employee.hire(this);
+      this.constructor.hire(this);
     }
-  });
-  
-  Manager.total = function total() {
-    return this.__super__.constructor.total();
-  };
+  }, Employee);
   
   (new Employee()).hire();
   (new Manager()).hire();
   
   t.strictEqual(Employee.total(), 2, 'should be 2 employees');
   t.strictEqual(Employee.employees[1].constructor, Manager, 'should be Manager');
-  t.strictEqual(Manager.total(), Employee.total(), 'should inherit total()');
+  t.strictEqual(Manager.total(), 1, 'should not inherit total()');
   t.end();
 });

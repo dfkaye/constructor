@@ -4,32 +4,18 @@
  */
 
 var test = require('tape');
-var Constructor = require('../../constructor.js').Constructor;
+var Constructor = require('../../');
 
 // test base function
 
-function Base() {};
-
-test('should fail when second argument not specified', function (t) {
-
-  var A;
-
-  try {
-    A = Constructor.extend(Base);
-    t.fail('should have failed');
-  } catch(e) {
-    t.strictEqual(typeof A, 'undefined');
-  }
-  
-  t.end();
-});
+function Base() {}
 
 test('should fail when second argument is boolean', function (t) {
 
   var A;
 
   try {
-    A = Constructor.extend(Base, true);
+    A = Constructor(true, Base);
     t.fail('should have failed');
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
@@ -43,7 +29,7 @@ test('should fail when second argument is number', function (t) {
   var A;
 
   try {
-    A = Constructor.extend(Base, 457);
+    A = Constructor(457, Base);
     t.fail('should have failed');
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
@@ -57,32 +43,10 @@ test('should fail when second argument is string', function (t) {
   var A;
 
   try {
-    A = Constructor.extend(Base, 'string');
+    A = Constructor('string', Base);
     t.fail('should have failed');
   } catch(e) {
     t.strictEqual(typeof A, 'undefined');
-  }
-  
-  t.end();
-});
-
-test('extend() should complain about identical Base constructors', function (t) {
-
-  var A = Constructor({
-    constructor: Base
-  });
-  
-  var B;
-  
-  try {
-      B = Constructor.extend(A, {
-        constructor: Base
-      });
-      
-      t.fail('should fail - extend() should complain about identical Base constructors');
-      
-  } catch (e) {
-    t.strictEqual(typeof B, 'undefined');
   }
   
   t.end();
@@ -97,11 +61,11 @@ test('extend() should complain about identical constructors with reused subclass
   var B;
   
   try {
-      B = Constructor.extend(A, {
+      B = Constructor({
         constructor: A
-      });
+      }, A);
       
-      t.fail('should fail - extend() should complain about identical reused subclass');
+      t.fail('should fail - should complain about identical reused subclass');
       
   } catch (e) {
     t.strictEqual(typeof B, 'undefined');
@@ -110,26 +74,26 @@ test('extend() should complain about identical constructors with reused subclass
   t.end();
 });
 
-test('should fail to inherit instance closure when __super__() not called from constructor', function (t) {
+test('should fail to inherit instance closure when super constructor not called from constructor', function (t) {
 
   var closure_msg = "closure_msg";
   var A = {
     constructor: function () {
       this.test = function () {
         return closure_msg;
-      }    
+      };
     }   
   };
   
   var proto = {
     // constructor: function () { this.__super__(); }
     log: function () {
-        return this.test();
+      return this.test();
     }
   };
   
-  var B = Constructor.extend(A, proto);
-  var b = new B;
+  var B = Constructor(proto, A);
+  var b = new B();
   var msg;
 
   try {
