@@ -3,7 +3,7 @@
  */
 
 var test = require('tape');
-var Constructor = require('../../constructor.js').Constructor;
+var Constructor = require('../../');
 
 // fixture setup - this is the part about TAPE that needs help - the before/after stuff
 
@@ -32,19 +32,19 @@ test('A should just work', function (t) {
 
 // inherit from A - pass in a constructor function only.
 
-fixtures.B = Constructor.extend(fixtures.A, function B(name, value) {
+fixtures.B = Constructor(function B(name, value) {
 
-  this.__super__(name);
+  fixtures.A.call(this, name);
 
   this.getValue = function getValue() {
       return value;
   };
-});
+}, fixtures.A);
 
 // add method to prototype after the extend() call to show the prototype can still be extended
 
 fixtures.B.prototype.test = function test() {
-  return this.getValue() + ":" + this.__super__.test();
+  return this.getValue() + ":" + fixtures.A.prototype.test.call(this);
 };
   
   
@@ -58,34 +58,23 @@ test('function B extends function A', function (t) {
   t.end();
 });
 
-test('__super__ methods are public', function (t) {
-
-  var name = 'test name';
-  var value = 'test value';
-  var b = new fixtures.B(name, value);
-  
-  t.strictEquals(b.__super__.getName(), b.getName());
-  t.end();
-});
-
 
 // C is a prototype rather than a function
 
 fixtures.C = {
-  	constructor: function C(name, value) {
-  		this.__super__(name, value);
-  	},
-  	test: function test() {
-  		return this.getName() + ":" + this.getValue() + " >> " + this.__super__.test();
-  	}
-  };
+  constructor: function C(name, value) {
+    fixtures.B.call(this, name, value);
+  },
+  test: function test() {
+    return this.getName() + ":" + this.getValue() + " >> " + fixtures.B.prototype.test.call(this);
+  }
+};
 
 test('prototype C extends function B', function (t) {
 
   var name = 'test name';
   var value = 'test value';
-  
-  Constructor.extend(fixtures.B, fixtures.C);
+  Constructor(fixtures.C, fixtures.B);
   
   var c = new fixtures.C.constructor(name, value);
   
@@ -94,19 +83,19 @@ test('prototype C extends function B', function (t) {
 });
 
 
-// D is a prototype 
+// D is a prototype   
 
 fixtures.D = {
   constructor: function D(name, value, prop) {
-  	
-    this.__super__(name, value);
-  		
-  	this.getProp = function getProp() {
-  	  return prop;
-    }
+    
+    fixtures.C.constructor.call(this, name, value);
+      
+    this.getProp = function getProp() {
+      return prop;
+    };
   },
   test: function test() {
-  	return this.getProp() + " >> " + this.__super__.test();
+    return this.getProp() + " >> " + fixtures.C.constructor.prototype.test.call(this);
   }
 };
 
@@ -116,11 +105,12 @@ test('prototype D extends function C', function (t) {
   var value = 'test value';
   var prop = 'test prop';
    
-  Constructor.extend(fixtures.C.constructor, fixtures.D);
+  Constructor(fixtures.D, fixtures.C.constructor);
   
   var d = new fixtures.D.constructor(name, value, prop);
   
   t.strictEquals(d.test(), prop + " >> " + name + ':' + value + " >> " + value + ':' + name);
+
   t.end();
 });
 

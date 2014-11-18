@@ -2,9 +2,9 @@
  *  file:  constructor.js - provides construction prototype and __super__ 
  *         inheritance to JavaScript
  *  author:   @dfkaye - david.kaye
- *	date:	2012-10-30
+ *  date: 2012-10-30
  *
- *	To-DO (if ever)
+ *  To-DO (if ever)
  *    - better 'actual' support for extending natives (like Array) - could be 
  *      bikeshedding, though...
  *
@@ -25,132 +25,83 @@
  *
  *   3/27/14
  *      expose static __super__ and __super__.constructor properties
+ *
+ *   11/10/14
+ *      Change API and implementation to a simpler one by mytharcher
  */
 
 ;(function (exports) {
 
-  exports = (typeof module != 'undefined' && module.exports) || window;
-  exports.Constructor = Constructor;
+  if (typeof module != 'undefined' && module.exports) {
+    module.exports = Constructor;
+  } else {
+    exports.Constructor = Constructor;
+  }
 
   /*
    *  @constructor function Constructor
    *
-   *  @param source - source must be either a function or an object specifier
+   *  @param source - required - source must be an object specifier
+   *  @param Super - Super must be a function
    *  @return function - the new constructor function
    */
-  function Constructor(source) {
 
-    var sourceType = typeof(source);
-    var error = "Constructor(): invalid 'source' argument, must be a function or prototype, but was ";
-    var ctr;
-
-    if ('function' === sourceType) {
-      return source
-    }
+  function Constructor (source, Super) {
+    var sourceType = typeof source;
+    var error = "Constructor(): invalid 'source' argument, must be a object, but was ";
+    var i, newClass;
 
     if ('undefined' === sourceType) {
-      throw new ReferenceError(error + "undefined")
+      throw new ReferenceError(error + "undefined");
     }
 
-    if ('object' !== sourceType || source === null) {
-      throw new TypeError(error + ('object' != sourceType  ? sourceType + " [" + source + "]" : "null"))
+    if ('object' !== sourceType && 'function' !== sourceType || source === null) {
+      throw new TypeError(error + ('object' != sourceType  ? sourceType + " [" + source + "]" : "null"));
     }
 
-    ctr = source.constructor !== Object ? source.constructor : function () {};
+    if ('function' === sourceType) {
+      newClass = source;
 
-    ctr.prototype = source;
-    ctr.prototype.constructor = ctr;
-
-    return ctr
-  }
-
-  /*
-   *  @method Constructor.extend
-   *
-   *  @param source - required - source must be either a function or an object specifier
-   *  @param target - required - target must be either a function or an object specifier
-   *  @return function - the new constructor function
-   */
-  Constructor.extend = extend;
-
-  function extend(source, target) {
-
-    var error = 'Constructor.extend(): ';
-
-    if (arguments.length < 2) {
-      throw new TypeError(error + 'requires 2 arguments, source and target.')
+      if (!Super) {
+        return source;
+      }
+    } else {
+      // use noop function as default constructor if user not defined as in Java
+      newClass = source.hasOwnProperty('constructor') ? source.constructor : function () {};
     }
-
-    var sourceType = typeof(source);
-    var targetType = typeof(target);
-
-    /*
-     *  pass-through if not functions; let Constructor throw errors if not objects either;
-     */
-    var newSource = (sourceType !== 'function') ? new Constructor(source) : source;
-    var newConstructor = (targetType !== 'function') ? new Constructor(target) : target;
-
-    if (newSource == newConstructor) {
-      throw new ReferenceError(error + ' source and target arguments should not be identical')
-    }
-
-    var newPrototype;
-
-    function F() {}
     
-    // expose static __super_ and __super__.constructor properties
-    F.constructor = newSource; 
-    newConstructor.__super__ = F;
-    
-    // create our new prototype
-    F.prototype = newSource.prototype;
-    newPrototype = new F();
-  
-    /*
-     *  In order to support the target argument as an object specifier, we have
-     *  to take the extra step of copying out its properties onto the new target
-     *  function's prototype.
-     */
-    if (targetType === 'object') {
-
-      var proto = newConstructor.prototype;
-
-      for (var k in proto) {
-        if (proto.hasOwnProperty(k)) {
-          newPrototype[k] = proto[k];
+    if (Super) {
+      if (newClass === Super) {
+        throw Erro('Constructor(): the constructor of new class should not be same as super.')
+      }
+      var SuperHelper = function () {};
+      
+      SuperHelper.prototype = Super.prototype;
+      
+      // make `instanceof` could be use to check the inheritance relationship
+      newClass.prototype = new SuperHelper();
+      
+      // fix constructor function
+      newClass.prototype.constructor = newClass;
+      
+      // copy static members from super class to new class (not override)
+      for (i in Super) {
+        if (!newClass.hasOwnProperty(i) && Super.hasOwnProperty(i)) {
+          newClass[i] = Super[i];
         }
       }
+      
+      SuperHelper = null;
     }
-
-    /*
-     * yes this makes 'constructor' an enumerable property
-     */
-    newPrototype.constructor = newConstructor;
-
-    /*
-     *  @method __super__ - a call-once method for initializing the super/parent constructor of
-     *  this constructor.  __super__ is replaced with an instance of the super/parent.
-     */
-    newPrototype.__super__ = function () {
-
-      var __super__ = this.constructor.__super__;
-      var p = new __super__(this, arguments);
-
-      p.constructor.apply(p, arguments);
-
-      for (var k in p) {
-        if (p.hasOwnProperty(k)) {
-        //if (!(k in this)) {
-          this[k] = p[k];
-        }
+    
+    // copy user defined prototype members back to new class
+    for (i in source) {
+      if (source.hasOwnProperty(i)) {
+        newClass.prototype[i] = source[i];
       }
-
-      this.__super__ = p;
-    };
-
-    newConstructor.prototype = newPrototype;
-
-    return newConstructor
+    }
+   
+    return newClass;
   }
 
-}());
+})(this);

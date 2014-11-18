@@ -3,21 +3,17 @@ constructor.js
 
 [![Build Status](https://travis-ci.org/dfkaye/constructor.png)](https://travis-ci.org/dfkaye/constructor)
 
-constructor.js ~ constructor-, prototype- and __super__- inheritance module. 
+constructor.js ~ constructor- and prototype- inheritance module. 
 
 Motivation
 ----------
 
-Though there are problems with inheritance (mainly overuse and coupling), it 
-should just work and JavaScript should support it.  Yes, it already "does", but 
-[see this proposal for a better api](https://gist.github.com/dfkaye/4948675 "constructor-api-proposal").
+Though there are problems with inheritance (mainly overuse and coupling), it should just work and JavaScript should support it.  Yes, it already "does", but [see this proposal for a better api](https://gist.github.com/dfkaye/4948675 "constructor-api-proposal").
 
 tape & testling
 ---------------
 
-Using [tape](https://github.com/substack/tape) to run tests from the node.js 
-command line, and in order to use [testling](http://ci.testling.com/) from the
-github service hook.
+Using [tape](https://github.com/substack/tape) to run tests from the node.js command line, and in order to use [testling](http://ci.testling.com/) from the github service hook.
 
 [![browser support](https://ci.testling.com/dfkaye/constructor.png)](https://ci.testling.com/dfkaye/constructor)
 
@@ -28,28 +24,25 @@ use
 
   node:
 
-    var Constructor = require('./constructor').Constructor;
+    var Constructor = require('constructor');
 
   browser:
 
     <script src='path/to/constructor.js'></script>
     <script>
-      var example = window.Constructor(etc);
+      var example = Constructor(etc);
     </script>
 
 Constructor API
 ---------------
 
-__Constructor(base)__ ~ specify a base object with 'constructor' defined as a 
-    function.  If constructor is not defined, an empty function is provided.
-    The constructor function's prototype is then set to the base object, and the
-    function is returned.  If you pass in a function, that function is returned
-    immediately without modification.  Use of the 'new' keyword when calling 
-    `Constructor()` is optional.
+### Constructor(base) ###
+
+specify a base object with 'constructor' defined as a function.  If constructor is not defined, an empty function is provided. The constructor function's prototype is then set to the base object, and the function is returned. If you pass in a function, that function is returned immediately without modification.
     
 Example:
     
-    Dialog = new Constructor({
+    Dialog = Constructor({
       constructor: function (contentNode) {
         this.contentNode = contentNode;
       },
@@ -75,29 +68,22 @@ Example:
 Prior Art
 ---------
 
-This implementation is based on the type() method suggested by Nicholas Zakas in 
-his post [Custom types (classes) using object literals in JavaScript]
-(http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ 
-"Custom types (classes) using object literals in JavaScript")
+This implementation is based on the type() method suggested by Nicholas Zakas in his post [Custom types (classes) using object literals in JavaScript](http://www.nczonline.net/blog/2011/11/04/custom-types-classes-using-object-literals-in-javascript/ "Custom types (classes) using object literals in JavaScript")
     
-Zakas' method is in turn based on a de-sugaring of Jeremy Askenas' suggested
-api for the class, extend, super keyword proposals for ES6.
+Zakas' method is in turn based on a de-sugaring of Jeremy Askenas' suggested api for the class, extend, super keyword proposals for ES6.
 
 
-__Constructor.extend(base, child)__
+### Constructor(child, base) ###
 
-Specify a base object or function to inherit from, and a child object or 
-function that will inherit from the base.  The base is referenced from the child 
-by `this.__super__`.  In the constructor, use it as a function call initially, 
-then as an object thereafter.
+Specify a base object or function to inherit from, and a child object or function that will inherit from the base. In the constructor, use it as a function call initially, then as an object thereafter.
     
 An example - hastily presented:
 
-    ConfigurableDialog = Constructor.extend(Dialog, {
+    ConfigurableDialog = Constructor({
     
       constructor: function (contentNode, state) {
     
-        this.__super__(contentNode); // first use of __super__
+        Dialog.call(this, contentNode);
         
         this.state = state;
         
@@ -109,7 +95,7 @@ An example - hastily presented:
       hide: function () {
         if (this.state.shown) {
         
-          this.__super__.hide(); // delegate to the __super__
+          Dialog.prototype.hide.call(this);
           
           this.state.shown = false;
         }
@@ -118,26 +104,22 @@ An example - hastily presented:
       show: function () {
         if (!this.state.shown) {
       
-          this.__super__.show(); // delegate to the __super__
+          Dialog.prototype.show.call(this);
           
           this.state.shown = true;
         }
       }
-    });
+    }, Dialog);
     
     
 Statics or Class-level properties
 ---------------------------------
 
-Statics are __not__ inherited by the `Constructor.extend()` operation as those 
-are defined on a constructor directly, not on its prototype (which provides a 
-map for instances).  Inheriting statics is not regarded as a good practice, 
-anyway.  
+Statics will be inherited, but not override.
 
-However, using `constructor.js`, you can access a staticName on a base 
-constructor by referring to `this.__super__.constructor.staticName`:
+By using `constructor.js`, you can access a staticName on a base constructor by specific name like: `<SuperName>.staticName`.
 
-Example
+Example:
     
     Request = Constructor({
     
@@ -147,7 +129,7 @@ Example
       // do something with obj
     };
     
-    Post = Constructor.extend(Request, {
+    Post = Constructor({
       constructor: function () {
         //...
       },
@@ -155,19 +137,18 @@ Example
 accessing the method:
 
       accessStatic: function () {
-        return this.__super__.constructor.staticMethod(this);
+        return this.constructor.staticMethod(xxx);
       },
       
 applying the method to the current scope:
 
       applyStatic: function () {
-        return this.__super__.constructor.staticMethod.apply(this, this);
+        return Request.staticMethod.apply(this.constructor, xxx);
       }
       
-    });
+    }, Request);
   
-__UPDATE 27 MAR 2014__:  Blog Post on the 
-[problem with static inheritance](http://dfkaye.github.io/2014/03/27/problem-with-static-inheritance-in-coffeescript/)
+__UPDATE 27 MAR 2014__:  Blog Post on the [problem with static inheritance](http://dfkaye.github.io/2014/03/27/problem-with-static-inheritance-in-coffeescript/)
 
 Tests
 =====
@@ -176,27 +157,15 @@ Tests
 * extend case tests __done for now__
 * anti-pattern tests, inherit-statics, using-natives __done for now__
 
-The only failing tests are in extend/using-natives.js, and only in IE 6, 7, & 8.
-See the [Extending Natives?](#extending-natives) section further down.
+The only failing tests are in extend/using-natives.js, and only in IE 6, 7, & 8. See the [Extending Natives?](#extending-natives) section further down.
 
-The /base and /extend test cases show the intended usage of Constructor() and 
-Constructor.extend().
+The /base and /extend test cases show the intended usage of Constructor() and Constructor.extend().
 
-The /base and /extend directories contain an ___anti-patterns.js___ test which 
-shows a few clever and/or misguided uses that have surprising side-effects. 
+The /base and /extend directories contain an ___anti-patterns.js___ test which shows a few clever and/or misguided uses that have surprising side-effects. 
 
-Under /extend is the inherit-statics.js tests which show how to access a static 
-attribute from a __super__ constructor, but goes into some detail about the 
-example from which this test is derived.   The example is taken from 
-[Programming in CoffeeScript](http://www.amazon.com/gp/product/032182010X/) by 
-[Mark Bates](http://metabates.com/), Addison-Wesley, pp. 147-150, 
-where the author shows that CoffeeScript does not support static inheritance 
-through the `__super__` keyword.  However, the example contains a more 
-fundamental problem with respect to static property access that is NOT specific 
-to CoffeeScript.  
+Under /extend is the inherit-statics.js tests which show how to access a static attribute from a __super__ constructor, but goes into some detail about the example from which this test is derived.   The example is taken from [Programming in CoffeeScript](http://www.amazon.com/gp/product/032182010X/) by [Mark Bates](http://metabates.com/), Addison-Wesley, pp. 147-150, where the author shows that CoffeeScript does not support static inheritance through the `__super__` keyword. However, the example contains a more fundamental problem with respect to static property access that is NOT specific to CoffeeScript.  
 
-__UPDATE 27 MAR 2014__:  Blog Post on this problem
-[fixing static inheritance](http://dfkaye.github.io/2014/03/27/problem-with-static-inheritance-in-coffeescript/)
+__UPDATE 27 MAR 2014__:  Blog Post on this problem [fixing static inheritance](http://dfkaye.github.io/2014/03/27/problem-with-static-inheritance-in-coffeescript/)
 
 test from node.js command line:
 ------------------------------
@@ -224,8 +193,7 @@ test from node.js command line:
 browser test suite:
 -------------------
 
-Using [browserify](http://browserify.org) to bundle up the 
-[tape](https://github.com/substack/tape) tests above.
+Using [browserify](http://browserify.org) to bundle up the [tape](https://github.com/substack/tape) tests above.
 
     $ npm run bundle
     
@@ -233,38 +201,28 @@ Using [browserify](http://browserify.org) to bundle up the
   
     $ browserify ./test/suite.js -o ./browser-test/bundle.js
 
-The html suite uses a `dom-console.js` shim for reporting all of 
-[tape](https://github.com/substack/tape)'s `console.log` statements into the DOM 
-itself.  This is located at 
-https://github.com/dfkaye/constructor/blob/master/browser-test/dom-console.js
+The html suite uses a `dom-console.js` shim for reporting all of [tape](https://github.com/substack/tape)'s `console.log` statements into the DOM 
+itself. This is located at <https://github.com/dfkaye/constructor/blob/master/browser-test/dom-console.js>
     
-__You can view the browser-test/suite.html file on 
-<a href='//rawgit.com/dfkaye/constructor/master/browser-test/suite.html' 
-    target='_new' title='opens in new tab or window'>rawgit</a>__
+**You can view the browser-test/suite.html file on <a href='//rawgit.com/dfkaye/constructor/master/browser-test/suite.html' 
+    target='_blank' title='opens in new tab or window'>rawgit</a>**
 
 
 <a id="extending-natives"></a>
+
 Extending Natives?
 ==================
 
-YES, you can inherit from Native functions, but there are some caveats - see the 
-[test/extend/using-natives.js](https://github.com/dfkaye/constructor/blob/master/test/extend/using-natives.js) 
-file for a complete implementation of a SubArray that inherits from the native 
-Array constructor.
+YES, you can inherit from Native functions, but there are some caveats - see the [test/extend/using-natives.js](https://github.com/dfkaye/constructor/blob/master/test/extend/using-natives.js) file for a complete implementation of a SubArray that inherits from the native Array constructor.
 
-And the caveats?  The use of the internal [[Class]] identifier in the JS engines 
-differs between IE 6-8 and all the others (not surprisingly) - but all have a 
-common restriction in that special methods based on the [[Class]] will fail on 
-any objects not identified as constructed by that [[Class]].
+And the caveats?  The use of the internal [[Class]] identifier in the JS engines differs between IE 6-8 and all the others (not surprisingly) - but all have a common restriction in that special methods based on the [[Class]] will fail on any objects not identified as constructed by that [[Class]].
 
-__tl;dr__
- 
+### tl;dr ###
+
 * subclassing Array requires overwriting `concat()` and `toString()` methods. 
 * IE 6-8 iterations fail on `this.length` on subarray instances.  
-* IE 6-7 don't allow subclasses to inherit any methods in this implementation of 
-  constructor inheritance.
+* IE 6-7 don't allow subclasses to inherit any methods in this implementation of constructor inheritance.
 
-  
 npm
 ---
 

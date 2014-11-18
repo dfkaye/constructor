@@ -5,7 +5,7 @@
  */
 
 var test = require('tape');
-var Constructor = require('../../constructor.js').Constructor;
+var Constructor = require('../../');
 
 test('ok when argument is array object', function (t) {
 
