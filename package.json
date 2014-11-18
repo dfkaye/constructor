@@ -1,5 +1,5 @@
 {
-  "version": "0.0.6",
+  "version": "0.1.0",
   "name": "constructor",
   "description": "constructor, prototype and __super__ inheritance for JavaScript.",
   "homepage" : "https://github.com/dfkaye/constructor",
@@ -11,7 +11,11 @@
     {
       "name": "jake verbaten (@Raynos)",
       "email": "raynos2@gmail.com"
-    }    
+    },
+    {
+      "name": "mytharcher (@mytharcher)",
+      "email": "mytharcher@gmail.com"
+    }
   ],
   "devDependencies": {
     "tape": ">=2.x.x"
@@ -23,7 +27,7 @@
   },
   "scripts" : {
     "test" : "node ./test/suite.js",
-    "bundle" : "browserify ./test/suite.js -o ./browser-test/bundle.js"
+    "bundle" : "browserify ./test/suite.js -s Constructor -o ./browser-test/bundle.js"
   },
   "testling": {
     "html": "./browser-test/suite.html",
